@@ -147,6 +147,7 @@
     const resultImage = document.getElementById('resultImage');
     const downloadLink = document.getElementById('downloadLink');
 
+    // Preview images when uploaded
     sourceImage.addEventListener('change', (e) => {
       if (e.target.files[0]) {
         sourcePreview.src = URL.createObjectURL(e.target.files[0]);
@@ -163,6 +164,7 @@
       }
     });
 
+    // Enable swap button when both images are uploaded
     function checkImagesUploaded() {
       if (sourceImage.files[0] && targetImage.files[0]) {
         swapButton.disabled = false;
@@ -171,11 +173,37 @@
       }
     }
 
+    // Handle face swap
     swapButton.addEventListener('click', async () => {
       const formData = new FormData();
       formData.append('source', sourceImage.files[0]);
       formData.append('target', targetImage.files[0]);
 
       swapButton.disabled = true;
-      swapButton
+      swapButton.textContent = 'Processing...';
+
+      try {
+        const response = await fetch('http://localhost:5000/swap', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) throw new Error('Face swap failed');
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        resultImage.src = url;
+        resultImage.classList.remove('hidden');
+        downloadLink.href = url;
+        downloadLink.classList.remove('hidden');
+      } catch (error) {
+        alert('Error: ' + error.message);
+      } finally {
+        swapButton.disabled = false;
+        swapButton.textContent = 'Swap Faces';
+      }
+    });
+  </script>
+</body>
+</html>
 
