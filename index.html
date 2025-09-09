@@ -1,163 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Face Swap Bot</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e6f0fa; /* Light blue background */
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .image-preview {
-            max-width: 300px;
-            max-height: 300px;
-            object-fit: contain;
-            margin: 10px;
-            border: 2px solid #38bdf8; /* Teal border for images */
-            border-radius: 8px;
-        }
-        .header {
-            background: linear-gradient(135deg, #1e40af, #3b82f6); /* Gradient blue header */
-            color: white;
-            padding: 2rem;
-            border-radius: 0 0 1rem 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .section-bg {
-            background-color: #ffffff; /* White card background */
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .button-primary {
-            background-color: #1e40af; /* Dark blue button */
-            transition: background-color 0.3s ease;
-        }
-        .button-primary:hover:not(:disabled) {
-            background-color: #2563eb; /* Lighter blue on hover */
-        }
-        .button-secondary {
-            background-color: #14b8a6; /* Teal download button */
-            transition: background-color 0.3s ease;
-        }
-        .button-secondary:hover {
-            background-color: #0d9488; /* Darker teal on hover */
-        }
-        .input-border {
-            border-color: #93c5fd; /* Light blue border for inputs */
-        }
-        .input-border:focus {
-            ring-color: #3b82f6; /* Blue focus ring */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Face Swap Bot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #e6f0fa; /* Light blue background */
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .image-preview {
+      max-width: 300px;
+      max-height: 300px;
+      object-fit: contain;
+      margin: 10px;
+      border: 2px solid #38bdf8; /* Teal border */
+      border-radius: 8px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1e40af, #3b82f6); /* Gradient blue */
+      color: white;
+      padding: 2rem;
+      border-radius: 0 0 1rem 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-bg {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .button-primary {
+      background-color: #1e40af;
+      transition: background-color 0.3s ease;
+    }
+
+    .button-primary:hover:not(:disabled) {
+      background-color: #2563eb;
+    }
+
+    .button-secondary {
+      background-color: #14b8a6;
+      transition: background-color 0.3s ease;
+    }
+
+    .button-secondary:hover {
+      background-color: #0d9488;
+    }
+
+    .input-border {
+      border-color: #93c5fd;
+    }
+
+    .input-border:focus {
+      ring-color: #3b82f6;
+    }
+
+    /* ✅ Added custom color classes */
+    .text-custom-purple {
+      color: #6b21a8; /* Deep purple text */
+    }
+
+    .bg-custom-yellow {
+      background-color: #fef9c3; /* Light yellow background */
+    }
+
+    .btn-green {
+      background-color: #22c55e;
+      color: white;
+    }
+
+    .btn-green:hover {
+      background-color: #16a34a;
+    }
+
+    .label-highlight {
+      color: #0f172a; /* Navy text */
+    }
+  </style>
 </head>
 <body>
-    <div class="header text-center">
-        <h1 class="text-4xl md:text-5xl font-bold">AI Face Swap Bot</h1>
-        <p class="mt-2 text-lg text-blue-100">Swap faces with a touch of magic!</p>
-    </div>
-    <div class="container mx-auto px-4 py-8">
-        <div class="section-bg p-6 mb-8">
-            <div class="flex flex-col md:flex-row justify-center">
-                <!-- Source Image Upload -->
-                <div class="md:w-1/2 p-4">
-                    <label class="block text-lg font-medium text-gray-800 mb-2">Source Image (Face to Swap)</label>
-                    <input type="file" id="sourceImage" accept="image/*" class="mb-4 p-2 border input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <img id="sourcePreview" class="image-preview hidden" alt="Source Preview">
-                </div>
-                <!-- Target Image Upload -->
-                <div class="md:w-1/2 p-4">
-                    <label class="block text-lg font-medium text-gray-800 mb-2">Target Image (Body)</label>
-                    <input type="file" id="targetImage" accept="image/*" class="mb-4 p-2 border input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <img id="targetPreview" class="image-preview hidden" alt="Target Preview">
-                </div>
-            </div>
-            <div class="text-center">
-                <button id="swapButton" class="button-primary text-white px-6 py-3 rounded-full disabled:bg-gray-400" disabled>Swap Faces</button>
-            </div>
+
+  <div class="header text-center">
+    <h1 class="text-4xl md:text-5xl font-bold text-custom-purple">AI Face Swap Bot</h1>
+    <p class="mt-2 text-lg text-blue-100">Swap faces with a touch of magic!</p>
+  </div>
+
+  <div class="container mx-auto px-4 py-8 bg-custom-yellow rounded-xl">
+    <div class="section-bg p-6 mb-8">
+      <div class="flex flex-col md:flex-row justify-center">
+        <!-- Source Image Upload -->
+        <div class="md:w-1/2 p-4">
+          <label class="block text-lg font-medium label-highlight mb-2">Source Image (Face to Swap)</label>
+          <input type="file" id="sourceImage" accept="image/*"
+                 class="mb-4 p-2 border input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <img id="sourcePreview" class="image-preview hidden" alt="Source Preview" />
         </div>
-        <!-- Result Display -->
-        <div class="section-bg p-6 text-center">
-            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Result</h2>
-            <img id="resultImage" class="image-preview mx-auto hidden" alt="Result Image">
-            <a id="downloadLink" class="hidden mt-4 inline-block button-secondary text-white px-4 py-2 rounded-lg" href="#" download="face_swap_result.png">Download Result</a>
+
+        <!-- Target Image Upload -->
+        <div class="md:w-1/2 p-4">
+          <label class="block text-lg font-medium label-highlight mb-2">Target Image (Body)</label>
+          <input type="file" id="targetImage" accept="image/*"
+                 class="mb-4 p-2 border input-border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <img id="targetPreview" class="image-preview hidden" alt="Target Preview" />
         </div>
+      </div>
+
+      <div class="text-center">
+        <button id="swapButton"
+                class="button-primary text-white px-6 py-3 rounded-full disabled:bg-gray-400"
+                disabled>Swap Faces</button>
+      </div>
     </div>
-    <footer class="bg-blue-900 text-blue-100 py-6 text-center">
-        <p>&copy; 2025 AI Face Swap Bot. All rights reserved.</p>
-    </footer>
 
-    <script>
-        const sourceImage = document.getElementById('sourceImage');
-        const targetImage = document.getElementById('targetImage');
-        const sourcePreview = document.getElementById('sourcePreview');
-        const targetPreview = document.getElementById('targetPreview');
-        const swapButton = document.getElementById('swapButton');
-        const resultImage = document.getElementById('resultImage');
-        const downloadLink = document.getElementById('downloadLink');
+    <!-- Result Display -->
+    <div class="section-bg p-6 text-center">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Result</h2>
+      <img id="resultImage" class="image-preview mx-auto hidden" alt="Result Image" />
+      <a id="downloadLink"
+         class="hidden mt-4 inline-block button-secondary text-white px-4 py-2 rounded-lg"
+         href="#"
+         download="face_swap_result.png">Download Result</a>
+    </div>
+  </div>
 
-        // Preview images when uploaded
-        sourceImage.addEventListener('change', (e) => {
-            if (e.target.files[0]) {
-                sourcePreview.src = URL.createObjectURL(e.target.files[0]);
-                sourcePreview.classList.remove('hidden');
-                checkImagesUploaded();
-            }
-        });
+  <footer class="bg-blue-900 text-blue-100 py-6 text-center">
+    <p>&copy; 2025 AI Face Swap Bot. All rights reserved.</p>
+  </footer>
 
-        targetImage.addEventListener('change', (e) => {
-            if (e.target.files[0]) {
-                targetPreview.src = URL.createObjectURL(e.target.files[0]);
-                targetPreview.classList.remove('hidden');
-                checkImagesUploaded();
-            }
-        });
+  <script>
+    const sourceImage = document.getElementById('sourceImage');
+    const targetImage = document.getElementById('targetImage');
+    const sourcePreview = document.getElementById('sourcePreview');
+    const targetPreview = document.getElementById('targetPreview');
+    const swapButton = document.getElementById('swapButton');
+    const resultImage = document.getElementById('resultImage');
+    const downloadLink = document.getElementById('downloadLink');
 
-        // Enable swap button when both images are uploaded
-        function checkImagesUploaded() {
-            if (sourceImage.files[0] && targetImage.files[0]) {
-                swapButton.disabled = false;
-            } else {
-                swapButton.disabled = true;
-            }
-        }
+    sourceImage.addEventListener('change', (e) => {
+      if (e.target.files[0]) {
+        sourcePreview.src = URL.createObjectURL(e.target.files[0]);
+        sourcePreview.classList.remove('hidden');
+        checkImagesUploaded();
+      }
+    });
 
-        // Handle face swap
-        swapButton.addEventListener('click', async () => {
-            const formData = new FormData();
-            formData.append('source', sourceImage.files[0]);
-            formData.append('target', targetImage.files[0]);
+    targetImage.addEventListener('change', (e) => {
+      if (e.target.files[0]) {
+        targetPreview.src = URL.createObjectURL(e.target.files[0]);
+        targetPreview.classList.remove('hidden');
+        checkImagesUploaded();
+      }
+    });
 
-            swapButton.disabled = true;
-            swapButton.textContent = 'Processing...';
+    function checkImagesUploaded() {
+      if (sourceImage.files[0] && targetImage.files[0]) {
+        swapButton.disabled = false;
+      } else {
+        swapButton.disabled = true;
+      }
+    }
 
-            try {
-                const response = await fetch('http://localhost:5000/swap', {
-                    method: 'POST',
-                    body: formData
-                });
+    swapButton.addEventListener('click', async () => {
+      const formData = new FormData();
+      formData.append('source', sourceImage.files[0]);
+      formData.append('target', targetImage.files[0]);
 
-                if (!response.ok) throw new Error('Face swap failed');
+      swapButton.disabled = true;
+      swapButton
 
-                const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-                resultImage.src = url;
-                resultImage.classList.remove('hidden');
-                downloadLink.href = url;
-                downloadLink.classList.remove('hidden');
-            } catch (error) {
-                alert('Error: ' + error.message);
-            } finally {
-                swapButton.disabled = false;
-                swapButton.textContent = 'Swap Faces';
-            }
-        });
-    </script>
-</body>
-</html>
