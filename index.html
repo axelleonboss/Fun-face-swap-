@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Face Swap Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-preview {
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">AI Face Swap Bot</h1>
+        <div class="flex flex-col md:flex-row justify-center mb-8">
+            <!-- Source Image Upload -->
+            <div class="md:w-1/2 p-4">
+                <label class="block text-lg font-medium mb-2">Source Image (Face to Swap)</label>
+                <input type="file" id="sourceImage" accept="image/*" class="mb-4 p-2 border rounded">
+                <img id="sourcePreview" class="image-preview hidden" alt="Source Preview">
+            </div>
+            <!-- Target Image Upload -->
+            <div class="md:w-1/2 p-4">
+                <label class="block text-lg font-medium mb-2">Target Image (Body)</label>
+                <input type="file" id="targetImage" accept="image/*" class="mb-4 p-2 border rounded">
+                <img id="targetPreview" class="image-preview hidden" alt="Target Preview">
+            </div>
+        </div>
+        <div class="text-center">
+            <button id="swapButton" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 disabled:bg-gray-400" disabled>Swap Faces</button>
+        </div>
+        <!-- Result Display -->
+        <div class="mt-8 text-center">
+            <h2 class="text-2xl font-semibold mb-4">Result</h2>
+            <img id="resultImage" class="image-preview mx-auto hidden" alt="Result Image">
+            <a id="downloadLink" class="hidden mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" href="#" download="face_swap_result.png">Download Result</a>
+        </div>
+    </div>
+
+    <script>
+        const sourceImage = document.getElementById('sourceImage');
+        const targetImage = document.getElementById('targetImage');
+        const sourcePreview = document.getElementById('sourcePreview');
+        const targetPreview = document.getElementById('targetPreview');
+        const swapButton = document.getElementById('swapButton');
+        const resultImage = document.getElementById('resultImage');
+        const downloadLink = document.getElementById('downloadLink');
+
+        // Preview images when uploaded
+        sourceImage.addEventListener('change', (e) => {
+            if (e.target.files[0]) {
+                sourcePreview.src = URL.createObjectURL(e.target.files[0]);
+                sourcePreview.classList.remove('hidden');
+                checkImagesUploaded();
+            }
+        });
+
+        targetImage.addEventListener('change', (e) => {
+            if (e.target.files[0]) {
+                targetPreview.src = URL.createObjectURL(e.target.files[0]);
+                targetPreview.classList.remove('hidden');
+                checkImagesUploaded();
+            }
+        });
+
+        // Enable swap button when both images are uploaded
+        function checkImagesUploaded() {
+            if (sourceImage.files[0] && targetImage.files[0]) {
+                swapButton.disabled = false;
+            } else {
+                swapButton.disabled = true;
+            }
+        }
+
+        // Handle face swap
+        swapButton.addEventListener('click', async () => {
+            const formData = new FormData();
+            formData.append('source', sourceImage.files[0]);
+            formData.append('target', targetImage.files[0]);
+
+            swapButton.disabled = true;
+            swapButton.textContent = 'Processing...';
+
+            try {
+                const response = await fetch('http://localhost:5000/swap', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('Face swap failed');
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                resultImage.src = url;
+                resultImage.classList.remove('hidden');
+                downloadLink.href = url;
+                downloadLink.classList.remove('hidden');
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                swapButton.disabled = false;
+                swapButton.textContent = 'Swap Faces';
+            }
+        });
+    </script>
+</body>
+</html>
