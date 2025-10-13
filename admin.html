@@ -1,336 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BenGadgets Admin Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-dark: #0e1116;
-            --bg-card: #1c1f26;
-            --text-light: #e0e6f0;
-            --text-accent: #FFD700; /* Gold */
-            --input-bg: #2a2e35;
-            --input-border: #3c424d;
-            --button-primary: #FFD700;
-            --button-hover: #ffdf5e;
-            --success-color: #4BB543;
-            --error-color: #e74c3c;
-            --placeholder-color: #888;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-light);
-            padding: 40px 20px;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            color: var(--text-accent);
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        .upload-container {
-            background: var(--bg-card);
-            padding: 35px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 450px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            text-align: left;
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            position: relative;
-            overflow: hidden; /* For success message animation */
-        }
-
-        label {
-            display: block;
-            margin-top: 18px;
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-accent);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        textarea {
-            width: calc(100% - 20px); /* Adjust for padding */
-            padding: 12px 10px;
-            background: var(--input-bg);
-            border: 1px solid var(--input-border);
-            border-radius: 8px;
-            outline: none;
-            font-size: 1rem;
-            color: var(--text-light);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        input::placeholder,
-        textarea::placeholder {
-            color: var(--placeholder-color);
-        }
-
-        input:focus,
-        textarea:focus {
-            border-color: var(--text-accent);
-            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
-        }
-
-        textarea {
-            resize: vertical; /* Allow vertical resize */
-            min-height: 80px;
-            max-height: 150px;
-        }
-
-        input[type="file"] {
-            background: var(--input-bg);
-            color: var(--text-light);
-            border: 1px dashed var(--input-border); /* Dashed border for file input */
-            padding: 12px;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-        input[type="file"]:hover {
-            border-color: var(--text-accent);
-        }
-
-        .image-preview {
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 8px;
-            border: 1px solid var(--input-border);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .image-preview p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 5px;
-        }
-
-
-        button {
-            width: 100%;
-            background: var(--button-primary);
-            color: var(--bg-dark); /* Dark text on gold button */
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 25px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            background: var(--button-hover);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        button:disabled {
-            background: #666;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .spinner {
-            border: 3px solid rgba(0, 0, 0, 0.1);
-            border-top: 3px solid var(--bg-dark); /* Spinner color matches text */
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .message {
-            font-weight: bold;
-            margin-top: 20px;
-            padding: 10px 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInOut 4s forwards;
-        }
-
-        .message.success {
-            background: rgba(75, 181, 67, 0.2);
-            color: var(--success-color);
-            border: 1px solid var(--success-color);
-        }
-
-        .message.error {
-            background: rgba(231, 76, 60, 0.2);
-            color: var(--error-color);
-            border: 1px solid var(--error-color);
-        }
-
-        @keyframes fadeInOut {
-            0% { opacity: 0; transform: translateY(20px); }
-            10% { opacity: 1; transform: translateY(0); }
-            90% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(20px); display: none;}
-        }
-
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - BenGadgets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #0e1116; color: white; margin: 0; padding: 20px; }
+    h1 { text-align: center; }
+    form { max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; background: #1a1f27; padding: 20px; border-radius: 10px; }
+    input, textarea, button { padding: 10px; border: none; border-radius: 5px; }
+    input, textarea { background: #2b313c; color: white; }
+    button { background: #ffcc00; font-weight: bold; cursor: pointer; }
+    button:hover { background: #ffdd33; }
+    #status { text-align: center; margin-top: 15px; font-weight: bold; }
+  </style>
 </head>
 <body>
-    <h1>🛠️ BenGadgets Admin Dashboard</h1>
+  <h1>📦 Admin Upload</h1>
 
-    <div class="upload-container">
-        <form id="uploadForm">
-            <label for="productName">Product Name</label>
-            <input type="text" id="productName" placeholder="e.g., Ultra-Slim Power Bank" required>
+  <form id="productForm">
+    <input type="text" id="name" placeholder="Product Name" required />
+    <input type="number" id="price" placeholder="Price (₦)" required />
+    <textarea id="description" placeholder="Product Description" rows="3" required></textarea>
+    <input type="file" id="image" accept="image/*" required />
+    <button type="submit">Upload Product</button>
+  </form>
 
-            <label for="productPrice">Price (₦)</label>
-            <input type="number" id="productPrice" placeholder="e.g., 15000" min="0" step="100" required>
+  <div id="status"></div>
 
-            <label for="productDescription">Product Description</label>
-            <textarea id="productDescription" placeholder="A concise and attractive description for your product..." required></textarea>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
-            <label for="productImage">Product Image</label>
-            <input type="file" id="productImage" accept="image/*" required>
-            <div class="image-preview" id="imagePreview">
-                </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLoh_gTdltfX2hPwV5oM_19M10icjghAE",
+      authDomain: "ben-gadgets-5fd67.firebaseapp.com",
+      projectId: "ben-gadgets-5fd67",
+      storageBucket: "ben-gadgets-5fd67.appspot.com",
+      messagingSenderId: "588194741861",
+      appId: "1:588194741861:web:7c9bef05004f271a21908c"
+    };
 
-            <button type="submit" id="submitButton">Upload Product</button>
-        </form>
-    </div>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
-    <div id="statusMessage">
-        </div>
+    const form = document.getElementById("productForm");
+    const statusDiv = document.getElementById("status");
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBLoh_gTdltfX2hPwV5oM_19M10icjghAE",
-            authDomain: "ben-gadgets-5fd67.firebaseapp.com",
-            databaseURL: "https://ben-gadgets-5fd67-default-rtdb.firebaseio.com",
-            projectId: "ben-gadgets-5fd67",
-            storageBucket: "ben-gadgets-5fd67.appspot.com",
-            messagingSenderId: "588194741861",
-            appId: "1:588194741861:web:7c9bef05004f271a21908c"
-        };
+      const name = document.getElementById("name").value;
+      const price = document.getElementById("price").value;
+      const description = document.getElementById("description").value;
+      const file = document.getElementById("image").files[0];
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
+      if (!file) {
+        alert("Please select an image");
+        return;
+      }
 
-        const uploadForm = document.getElementById('uploadForm');
-        const submitButton = document.getElementById('submitButton');
-        const statusMessageContainer = document.getElementById('statusMessage');
-        const productImageInput = document.getElementById('productImage');
-        const imagePreview = document.getElementById('imagePreview');
+      statusDiv.textContent = "⏳ Uploading... Please wait";
 
-        let isUploading = false; // Prevent multiple submissions
+      try {
+        const fileName = `${Date.now()}_${file.name}`;
+        const storageRef = ref(storage, `product_images/${fileName}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-        // Image Preview Handler
-        productImageInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            imagePreview.innerHTML = ''; // Clear previous preview
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    imagePreview.innerHTML = `
-                        <img src="${e.target.result}" alt="Product Image Preview">
-                        <p>${file.name}</p>
-                    `;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        uploadForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            if (isUploading) return; // Prevent double submission
-
-            const name = document.getElementById('productName').value.trim();
-            const price = parseFloat(document.getElementById('productPrice').value.trim()); // Parse to float
-            const description = document.getElementById('productDescription').value.trim();
-            const file = productImageInput.files[0];
-
-            if (!name || isNaN(price) || price <= 0 || !description || !file) {
-                displayMessage("⚠️ Please fill all fields correctly!", 'error');
-                return;
-            }
-
-            isUploading = true;
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<span class="spinner"></span> Uploading...';
-            statusMessageContainer.innerHTML = ''; // Clear previous messages
-
-            try {
-                // Upload image to Firebase Storage
-                const storageRef = ref(storage, `products/${Date.now()}_${file.name}`);
-                await uploadBytes(storageRef, file);
-                const imageUrl = await getDownloadURL(storageRef);
-
-                // Add product data to Firestore
-                await addDoc(collection(db, "products"), {
-                    name,
-                    price,
-                    description,
-                    imageUrl,
-                    timestamp: serverTimestamp() // Use server timestamp for consistent ordering
-                });
-
-                displayMessage("✅ Product uploaded successfully!", 'success');
-                uploadForm.reset();
-                imagePreview.innerHTML = ''; // Clear image preview
-            } catch (err) {
-                console.error("Upload error:", err);
-                displayMessage("❌ Failed to upload product. Check console for details.", 'error');
-            } finally {
-                isUploading = false;
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Upload Product';
-            }
-        });
-
-        function displayMessage(message, type) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type}`;
-            messageDiv.innerHTML = message;
-            statusMessageContainer.innerHTML = ''; // Clear previous messages
-            statusMessageContainer.appendChild(messageDiv);
-        }
-    </script>
+        uploadTask.on("state_changed", 
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            statusDiv.textContent = `Uploading... ${progress.toFixed(0)}%`;
+          }, 
+          (error) => {
+            console.error(error);
+            statusDiv.textContent = "❌ Upload failed. Check your connection.";
+          }, 
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            await addDoc(collection(db, "products"), {
+              name,
+              price,
+              description,
+              imageUrl: downloadURL,
+              timestamp: serverTimestamp(),
+            });
+            form.reset();
+            statusDiv.textContent = "✅ Product uploaded successfully!";
+          }
+        );
+      } catch (err) {
+        console.error(err);
+        statusDiv.textContent = "❌ Error: " + err.message;
+      }
+    });
+  </script>
 </body>
 </html>
