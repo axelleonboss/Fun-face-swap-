@@ -1,169 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BenGadgets Admin Upload</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-  <script type="module">
-    // ✅ Import Firebase SDKs
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
-
-    // ✅ Your Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBLoh_gTdltfX2hPwV5oM_19M10icjghAE",
-      authDomain: "ben-gadgets-5fd67.firebaseapp.com",
-      databaseURL: "https://ben-gadgets-5fd67-default-rtdb.firebaseio.com",
-      projectId: "ben-gadgets-5fd67",
-      storageBucket: "ben-gadgets-5fd67.appspot.com",
-      messagingSenderId: "588194741861",
-      appId: "1:588194741861:web:7c9bef05004f271a21908c"
-    };
-
-    // ✅ Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-
-    // ✅ Handle Product Upload
-    document.addEventListener('DOMContentLoaded', () => {
-      const uploadForm = document.getElementById('uploadForm');
-
-      uploadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const name = document.getElementById('productName').value;
-        const price = document.getElementById('productPrice').value;
-        const description = document.getElementById('productDescription').value;
-        const file = document.getElementById('productImage').files[0];
-
-        if (!name || !price || !description || !file) {
-          alert("⚠️ Please fill all fields!");
-          return;
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BenGadgets Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0e1116;
+            --bg-card: #1c1f26;
+            --text-light: #e0e6f0;
+            --text-accent: #FFD700; /* Gold */
+            --input-bg: #2a2e35;
+            --input-border: #3c424d;
+            --button-primary: #FFD700;
+            --button-hover: #ffdf5e;
+            --success-color: #4BB543;
+            --error-color: #e74c3c;
+            --placeholder-color: #888;
         }
 
-        try {
-          const storageRef = ref(storage, `products/${file.name}`);
-          await uploadBytes(storageRef, file);
-          const imageUrl = await getDownloadURL(storageRef);
-
-          await addDoc(collection(db, "products"), {
-            name,
-            price,
-            description,
-            imageUrl
-          });
-
-          alert("✅ Product uploaded successfully!");
-          uploadForm.reset();
-        } catch (error) {
-          console.error("Error uploading product:", error);
-          alert("❌ Failed to upload product. Check console for details.");
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 40px 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
-      });
-    });
-  </script>
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0e1116;
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
+        h1 {
+            color: var(--text-accent);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
 
-    h1 {
-      color: #f5c25c;
-      margin-bottom: 20px;
-    }
+        .upload-container {
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            text-align: left;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden; /* For success message animation */
+        }
 
-    form {
-      background-color: #1c1f26;
-      padding: 25px;
-      border-radius: 12px;
-      width: 340px;
-      margin: 30px auto;
-      box-shadow: 0 0 20px rgba(245, 194, 92, 0.1);
-      text-align: left;
-    }
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: 600;
-      font-size: 14px;
-      color: #f5c25c;
-    }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 12px 10px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            outline: none;
+            font-size: 1rem;
+            color: var(--text-light);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
 
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: none;
-      border-radius: 6px;
-      outline: none;
-      font-size: 14px;
-    }
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--placeholder-color);
+        }
 
-    input[type="file"] {
-      background-color: #fff;
-      color: #000;
-    }
+        input:focus,
+        textarea:focus {
+            border-color: var(--text-accent);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
 
-    textarea {
-      resize: none;
-      height: 90px;
-    }
+        textarea {
+            resize: vertical; /* Allow vertical resize */
+            min-height: 80px;
+            max-height: 150px;
+        }
 
-    button {
-      width: 100%;
-      background-color: #f5c25c;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 16px;
-      margin-top: 15px;
-      transition: all 0.3s ease;
-    }
+        input[type="file"] {
+            background: var(--input-bg);
+            color: var(--text-light);
+            border: 1px dashed var(--input-border); /* Dashed border for file input */
+            padding: 12px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        input[type="file"]:hover {
+            border-color: var(--text-accent);
+        }
 
-    button:hover {
-      transform: scale(1.05);
-      background-color: #ffd65b;
-    }
+        .image-preview {
+            margin-top: 15px;
+            text-align: center;
+        }
 
-    .footer-note {
-      margin-top: 20px;
-      color: #aaa;
-      font-size: 12px;
-    }
-  </style>
+        .image-preview img {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 8px;
+            border: 1px solid var(--input-border);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .image-preview p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+
+        button {
+            width: 100%;
+            background: var(--button-primary);
+            color: var(--bg-dark); /* Dark text on gold button */
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: var(--button-hover);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .spinner {
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-top: 3px solid var(--bg-dark); /* Spinner color matches text */
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInOut 4s forwards;
+        }
+
+        .message.success {
+            background: rgba(75, 181, 67, 0.2);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .message.error {
+            background: rgba(231, 76, 60, 0.2);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(20px); display: none;}
+        }
+
+    </style>
 </head>
-
 <body>
-  <h1>🛠️ BenGadgets Admin Upload</h1>
+    <h1>🛠️ BenGadgets Admin Dashboard</h1>
 
-  <form id="uploadForm">
-    <label for="productName">Product Name</label>
-    <input type="text" id="productName" placeholder="Enter product name" required>
+    <div class="upload-container">
+        <form id="uploadForm">
+            <label for="productName">Product Name</label>
+            <input type="text" id="productName" placeholder="e.g., Ultra-Slim Power Bank" required>
 
-    <label for="productPrice">Price (₦)</label>
-    <input type="number" id="productPrice" placeholder="Enter price" required>
+            <label for="productPrice">Price (₦)</label>
+            <input type="number" id="productPrice" placeholder="e.g., 15000" min="0" step="100" required>
 
-    <label for="productDescription">Product Description</label>
-    <textarea id="productDescription" placeholder="Write a short description..." required></textarea>
+            <label for="productDescription">Product Description</label>
+            <textarea id="productDescription" placeholder="A concise and attractive description for your product..." required></textarea>
 
-    <label for="productImage">Product Image</label>
-    <input type="file" id="productImage" accept="image/*" required>
+            <label for="productImage">Product Image</label>
+            <input type="file" id="productImage" accept="image/*" required>
+            <div class="image-preview" id="imagePreview">
+                </div>
 
-    <button type="submit">Upload Product</button>
-  </form>
+            <button type="submit" id="submitButton">Upload Product</button>
+        </form>
+    </div>
 
-  <p class="footer-note">Only admins can access this page — BenGadgets © 2025</p>
+    <div id="statusMessage">
+        </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLoh_gTdltfX2hPwV5oM_19M10icjghAE",
+            authDomain: "ben-gadgets-5fd67.firebaseapp.com",
+            databaseURL: "https://ben-gadgets-5fd67-default-rtdb.firebaseio.com",
+            projectId: "ben-gadgets-5fd67",
+            storageBucket: "ben-gadgets-5fd67.appspot.com",
+            messagingSenderId: "588194741861",
+            appId: "1:588194741861:web:7c9bef05004f271a21908c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        const uploadForm = document.getElementById('uploadForm');
+        const submitButton = document.getElementById('submitButton');
+        const statusMessageContainer = document.getElementById('statusMessage');
+        const productImageInput = document.getElementById('productImage');
+        const imagePreview = document.getElementById('imagePreview');
+
+        let isUploading = false; // Prevent multiple submissions
+
+        // Image Preview Handler
+        productImageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            imagePreview.innerHTML = ''; // Clear previous preview
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.innerHTML = `
+                        <img src="${e.target.result}" alt="Product Image Preview">
+                        <p>${file.name}</p>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (isUploading) return; // Prevent double submission
+
+            const name = document.getElementById('productName').value.trim();
+            const price = parseFloat(document.getElementById('productPrice').value.trim()); // Parse to float
+            const description = document.getElementById('productDescription').value.trim();
+            const file = productImageInput.files[0];
+
+            if (!name || isNaN(price) || price <= 0 || !description || !file) {
+                displayMessage("⚠️ Please fill all fields correctly!", 'error');
+                return;
+            }
+
+            isUploading = true;
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class="spinner"></span> Uploading...';
+            statusMessageContainer.innerHTML = ''; // Clear previous messages
+
+            try {
+                // Upload image to Firebase Storage
+                const storageRef = ref(storage, `products/${Date.now()}_${file.name}`);
+                await uploadBytes(storageRef, file);
+                const imageUrl = await getDownloadURL(storageRef);
+
+                // Add product data to Firestore
+                await addDoc(collection(db, "products"), {
+                    name,
+                    price,
+                    description,
+                    imageUrl,
+                    timestamp: serverTimestamp() // Use server timestamp for consistent ordering
+                });
+
+                displayMessage("✅ Product uploaded successfully!", 'success');
+                uploadForm.reset();
+                imagePreview.innerHTML = ''; // Clear image preview
+            } catch (err) {
+                console.error("Upload error:", err);
+                displayMessage("❌ Failed to upload product. Check console for details.", 'error');
+            } finally {
+                isUploading = false;
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Upload Product';
+            }
+        });
+
+        function displayMessage(message, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = message;
+            statusMessageContainer.innerHTML = ''; // Clear previous messages
+            statusMessageContainer.appendChild(messageDiv);
+        }
+    </script>
 </body>
 </html>
