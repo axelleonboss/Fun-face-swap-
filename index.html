@@ -1,474 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BengalGent — Premium Gadgets</title>
-
-  <!-- Fonts + Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a2d9b6f8b8.js" crossorigin="anonymous"></script>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BenGadgets - Smart Gadgets. Smarter Lifestyle.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg: #FAFAFB;
-      --card: #FFFFFF;
-      --text: #121212;
-      --muted: #6B7280;
-      --primary: #0056D2;    /* royal blue */
-      --accent: #FF7A00;     /* electric orange */
-      --gold: #D4AF37;       /* gold accent */
-      --shadow: 0 10px 30px rgba(4,4,20,0.08);
-    }
-    [data-theme="dark"]{
-      --bg: #0b0f17;
-      --card: #0f1724;
-      --text: #E7EEF8;
-      --muted: #9AA7C2;
-      --shadow: 0 8px 30px rgba(0,0,0,0.6);
+    :root {
+      --gold: #f5c25c;
+      --dark-bg: #0e1116;
+      --light-bg: #ffffff;
+      --dark-text: #ffffff;
+      --light-text: #0e1116;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background:linear-gradient(180deg,var(--bg), #e9eefc00);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.4;
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+      transition: background 0.4s, color 0.4s;
     }
 
-    /* Header */
-    header{
-      position:sticky;top:0;z-index:50;
-      display:flex;align-items:center;justify-content:space-between;
-      gap:12px;padding:12px 20px;background:transparent;
-      backdrop-filter: blur(6px);
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
     }
-    .brand{
-      display:flex;align-items:center;gap:12px;
-    }
-    .logo{
-      width:44px;height:44px;border-radius:8px;
-      background:linear-gradient(135deg,var(--primary),var(--gold));
-      display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;
-      box-shadow:0 6px 18px rgba(5,20,60,0.15);
-    }
-    .brand h1{font-size:18px;margin:0}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
 
-    .nav-actions{display:flex;align-items:center;gap:12px}
-    .icon-btn{
-      background:transparent;border:1px solid rgba(255,255,255,0.06);
-      padding:10px;border-radius:10px;color:var(--text);cursor:pointer;
-      display:inline-flex;align-items:center;gap:8px;font-weight:600;
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
     }
-    .theme-toggle{width:44px;height:44px;border-radius:10px;display:inline-grid;place-items:center;border:none;cursor:pointer;
-      background:linear-gradient(180deg,#fff0, #0000);box-shadow:none;}
-    .cart-bubble{background:var(--accent);color:#fff;padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
-
-    /* Hero */
-    .hero{
-      margin:18px auto 6px;max-width:1200px;padding:40px 22px;border-radius:14px;
-      background:linear-gradient(180deg, rgba(0,86,210,0.12), rgba(255,122,0,0.03));
-      display:flex;gap:30px;align-items:center;box-shadow:var(--shadow);
+    .logo span {
+      color: var(--gold);
     }
-    .hero-left{flex:1;min-width:260px}
-    .hero h2{font-size:28px;margin:0 0 12px}
-    .hero p{margin:0 0 18px;color:var(--muted)}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{
-      background:var(--primary);color:#fff;padding:12px 18px;border-radius:12px;border:none;font-weight:700;cursor:pointer;
-      box-shadow:0 8px 22px rgba(0,86,210,0.12)
+
+    .toggle-switch {
+      width: 50px;
+      height: 25px;
+      background-color: #222;
+      border-radius: 25px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.4s;
     }
-    .btn.alt{background:transparent;border:2px solid rgba(255,255,255,0.06);color:var(--text)}
-    .hero-right{width:420px;max-width:45%;display:flex;justify-content:center;align-items:center}
-    .hero-media{width:360px;height:220px;border-radius:14px;overflow:hidden;box-shadow:0 12px 40px rgba(3,10,30,0.25)}
-    .hero-media img{width:100%;height:100%;object-fit:cover}
 
-    /* Upload / Admin */
-    .admin-row{max-width:1200px;margin:18px auto;padding:18px;display:flex;gap:18px;align-items:center;justify-content:space-between}
-    .uploader{display:flex;gap:12px;align-items:center}
-    .file-input{display:none}
-    .upload-label{cursor:pointer;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--primary),var(--accent));color:white;font-weight:700}
-
-    /* Product grid */
-    .grid-wrap{max-width:1200px;margin:10px auto;padding:22px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
-    .card{
-      background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);
-      display:flex;flex-direction:column;transition:transform .22s ease;
+    .toggle-ball {
+      width: 21px;
+      height: 21px;
+      background-color: var(--gold);
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 3px;
+      transition: all 0.4s;
     }
-    .card:hover{transform:translateY(-6px)}
-    .card-media{height:160px;overflow:hidden;background:#f2f6fb;display:flex;align-items:center;justify-content:center}
-    .card-media img{width:100%;height:100%;object-fit:cover}
-    .card-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .title{font-weight:700;font-size:15px}
-    .desc{font-size:13px;color:var(--muted);min-height:36px}
-    .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .price{color:var(--accent);font-weight:800}
-    .mini{font-size:12px;color:var(--muted)}
 
-    .card-actions{display:flex;gap:8px}
-    .btn-sm{padding:8px 10px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .btn-buy{background:linear-gradient(90deg,var(--gold),var(--accent));color:#fff}
-    .btn-edit{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--text)}
-
-    /* Modal edit */
-    .modal{
-      position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:200;
+    body[data-theme="light"] {
+      background-color: var(--light-bg);
+      color: var(--light-text);
     }
-    .modal.show{display:flex}
-    .modal-card{width:92%;max-width:560px;background:var(--card);border-radius:12px;padding:18px;box-shadow:0 18px 60px rgba(0,0,0,0.45)}
-    .modal-card h3{margin:0 0 12px}
-    .form-row{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
-    .form-row input[type="text"], .form-row textarea{
-      padding:10px;border-radius:10px;border:1px solid #ddd;font-size:14px;width:100%;
-      background:transparent;color:var(--text)
+
+    body[data-theme="light"] .toggle-switch {
+      background-color: #ccc;
     }
-    .form-row textarea{min-height:80px;resize:vertical}
-    .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
 
-    /* Footer */
-    footer{margin-top:30px;padding:28px;text-align:center;color:var(--muted)}
-    footer small{display:block;margin-top:8px;color:var(--muted)}
+    body[data-theme="light"] .toggle-ball {
+      left: 26px;
+      background-color: var(--gold);
+    }
 
-    /* Responsive */
-    @media (max-width:720px){
-      .hero{flex-direction:column;text-align:center}
-      .hero-right{max-width:100%;width:100%}
-      .hero-media{width:92%;height:180px}
-      header{padding:10px}
+    .hero {
+      text-align: left;
+      padding: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-text {
+      max-width: 500px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    .shop-btn {
+      background-color: var(--gold);
+      color: #000;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .shop-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-img img {
+      width: 280px;
+      border-radius: 15px;
+    }
+
+    .products {
+      background-color: #f8f8f8;
+      color: #000;
+      padding: 50px 30px;
+      text-align: center;
+    }
+
+    .products h2 {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+
+    .product-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      width: 220px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+
+    body[data-theme="light"] footer {
+      background-color: var(--light-bg);
+      color: var(--light-text);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-img img {
+        margin-top: 20px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
   <header>
-    <div class="brand">
-      <div class="logo">BG</div>
-      <div>
-        <h1>BengalGent</h1>
-        <p style="margin-top:4px;font-size:12px;color:var(--muted)">Smart Gadgets. Smarter Lifestyle.</p>
-      </div>
-    </div>
-
-    <div class="nav-actions">
-      <div class="mini">Support: <span class="mini" style="color:var(--primary)">081-XXX-XXXX</span></div>
-      <button class="theme-toggle" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
-        <i id="themeIcon" class="fa-regular fa-moon" style="color:var(--text)"></i>
-      </button>
-      <div class="cart-bubble">Cart 0</div>
+    <div class="logo">Ben<span>Gadgets</span></div>
+    <div class="toggle-switch" id="theme-toggle">
+      <div class="toggle-ball"></div>
     </div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
-    <div class="hero-left">
-      <h2>Premium gadgets, hand-picked for modern life</h2>
-      <p>Fast delivery to major cities • Secure payments (Moniepoint & Crypto soon) • Genuine quality</p>
-      <div class="cta-row">
-        <button class="btn" onclick="scrollToGrid()">Shop Top Picks</button>
-        <button class="btn alt" onclick="openUpload()">Upload Product</button>
-      </div>
+    <div class="hero-text">
+      <h1>SMART GADGETS.<br>SMARTER LIFESTYLE.</h1>
+      <p>Your one-stop shop for gadgets, fashion & more.</p>
+      <button class="shop-btn">Shop Now</button>
     </div>
-    <div class="hero-right">
-      <div class="hero-media" aria-hidden="true">
-        <img src="https://images.unsplash.com/photo-1606813902912-9aa2b4b4a3b2?auto=format&fit=crop&w=1400&q=80" alt="Hero">
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1606813902642-03099e6b5a5d?auto=format&fit=crop&w=400&q=80" alt="Smart Watch">
+    </div>
+  </section>
+
+  <section class="products">
+    <h2>FEATURED PRODUCTS</h2>
+    <div class="product-list">
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1598331668826-20cecc596b87?auto=format&fit=crop&w=400&q=80" alt="Wireless Earbuds">
+        <h4>Wireless Eh</h4>
+        <p>₦12,000</p>
+      </div>
+
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1606813902642-03099e6b5a5d?auto=format&fit=crop&w=400&q=80" alt="Ment Yatch">
+        <h4>Ment Yatch</h4>
+        <p>₦19,000</p>
+      </div>
+
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9a?auto=format&fit=crop&w=400&q=80" alt="Streech">
+        <h4>Streech</h4>
+        <p>₦18,000</p>
       </div>
     </div>
   </section>
 
-  <!-- Admin / Upload -->
-  <div class="admin-row">
-    <div class="uploader">
-      <label class="upload-label" for="fileInput"><i class="fa-solid fa-upload"></i>&nbsp; Add product image</label>
-      <input class="file-input" id="fileInput" type="file" accept="image/*">
-      <button class="upload-label" id="btnBulkAdd">Add sample product</button>
-    </div>
-
-    <div>
-      <button class="upload-label" id="btnSaveAll" title="Save products">💾 Save Changes</button>
-      <button class="upload-label" id="btnReset">Reset</button>
-    </div>
-  </div>
-
-  <!-- Product Grid -->
-  <div class="grid-wrap" id="gridWrap">
-    <div class="grid" id="productGrid"></div>
-  </div>
-
-  <!-- Edit Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-card" role="dialog" aria-modal="true">
-      <h3>Edit Product</h3>
-      <div class="form-row">
-        <label>Image</label>
-        <input type="file" id="modalImage" accept="image/*">
-        <img id="modalPreview" src="" alt="preview" style="width:100%;border-radius:8px;margin-top:6px;object-fit:cover;height:160px">
-      </div>
-      <div class="form-row">
-        <label>Title</label>
-        <input id="modalTitle" type="text">
-      </div>
-      <div class="form-row">
-        <label>Price (₦)</label>
-        <input id="modalPrice" type="text">
-      </div>
-      <div class="form-row">
-        <label>Description</label>
-        <textarea id="modalDesc"></textarea>
-      </div>
-      <div class="modal-actions">
-        <button class="btn-sm btn-edit" id="modalClose">Cancel</button>
-        <button class="btn-sm btn" id="modalSave">Save</button>
-      </div>
-    </div>
-  </div>
-
   <footer>
-    <div style="max-width:1000px;margin:auto;">
-      <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap">
-        <small style="color:var(--muted)">About • Shipping • Returns • Privacy</small>
-        <small style="color:var(--muted)">Moniepoint & Bitget integration supported (coming soon)</small>
-      </div>
-      <small>© 2025 BengalGent. All Rights Reserved.</small>
-    </div>
+    © 2025 BenGadgets. All Rights Reserved.
   </footer>
 
-<script>
-/* ======================
-   Data + Storage logic
-   ====================== */
-const STORAGE_KEY = 'bengalgent_products_v1';
-const THEME_KEY = 'bengalgent_theme_v1';
+  <!-- Firebase Light/Dark Mode -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-const defaultProducts = [
-  { id: "p1", title:"Smart Watch X Pro", price:"45000", desc:"Waterproof, heart-rate, 7-day battery", img:"https://images.unsplash.com/photo-1510552776732-03e61cf4b144?auto=format&fit=crop&w=800&q=60" },
-  { id: "p2", title:"Wireless Earbuds", price:"18000", desc:"Clear bass, noise isolation", img:"https://images.unsplash.com/photo-1606813902913-0d0cfddf633c?auto=format&fit=crop&w=800&q=60" },
-  { id: "p3", title:"Bluetooth Speaker", price:"25000", desc:"Portable, 12h playtime", img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=60" },
-  { id: "p4", title:"VR Headset", price:"70000", desc:"Immersive 3D experience", img:"https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=800&q=60" },
-  { id: "p5", title:"Mini Projector", price:"42000", desc:"Pocket cinema, HDMI & wireless", img:"https://images.unsplash.com/photo-1564869732435-2c5f1a1b9a9f?auto=format&fit=crop&w=800&q=60" },
-  { id: "p6", title:"Car Vacuum", price:"7500", desc:"USB rechargeable, powerful suction", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=60" },
-  { id: "p7", title:"Smart Bulb (RGB)", price:"5500", desc:"App control, schedule & scenes", img:"https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=60" },
-  { id: "p8", title:"Wireless Charger", price:"6000", desc:"Fast charge, compact", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=60" },
-  { id: "p9", title:"Tracker Keychain", price:"4500", desc:"Find keys with bluetooth app", img:"https://images.unsplash.com/photo-1523475496153-3d6ccf5a9e24?auto=format&fit=crop&w=800&q=60" }
-];
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLoh_gTdltfX2hPwV5oM_19M10icjghAE",
+      authDomain: "ben-gadgets-5fd67.firebaseapp.com",
+      projectId: "ben-gadgets-5fd67",
+      storageBucket: "ben-gadgets-5fd67.firebasestorage.app",
+      messagingSenderId: "588194741861",
+      appId: "1:588194741861:web:7c9bef05004f271a21908c"
+    };
 
-let products = loadProducts();
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-/* Theme */
-const themeBtn = document.getElementById('themeBtn');
-const themeIcon = document.getElementById('themeIcon');
-initTheme();
+    const userId = "demo_user_001"; // for now demo user
+    const toggle = document.getElementById("theme-toggle");
 
-/* Elements */
-const productGrid = document.getElementById('productGrid');
-const fileInput = document.getElementById('fileInput');
-const btnSaveAll = document.getElementById('btnSaveAll');
-const btnReset = document.getElementById('btnReset');
-const btnBulkAdd = document.getElementById('btnBulkAdd');
+    async function applyTheme() {
+      const userRef = doc(db, "users", userId);
+      const userSnap = await getDoc(userRef);
 
-renderGrid();
+      if (userSnap.exists()) {
+        const theme = userSnap.data().theme;
+        document.body.setAttribute("data-theme", theme);
+      } else {
+        await setDoc(userRef, { theme: "dark" });
+        document.body.setAttribute("data-theme", "dark");
+      }
+    }
 
-/* ========== Theme functions ========== */
-function initTheme(){
-  const saved = localStorage.getItem(THEME_KEY);
-  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = saved || (prefersDark ? 'dark':'light');
-  document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark':'light');
-  updateThemeIcon(theme);
-  themeBtn.onclick = toggleTheme;
-}
-function toggleTheme(){
-  const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark':'light';
-  const next = current === 'dark' ? 'light':'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem(THEME_KEY, next);
-  updateThemeIcon(next);
-}
-function updateThemeIcon(theme){
-  if(theme === 'dark'){ themeIcon.className = 'fa-regular fa-sun'; themeIcon.style.color = '#FFD98E'; }
-  else { themeIcon.className = 'fa-regular fa-moon'; themeIcon.style.color = 'var(--text)'; }
-}
+    async function toggleTheme() {
+      const userRef = doc(db, "users", userId);
+      const currentTheme = document.body.getAttribute("data-theme");
+      const newTheme = currentTheme === "light" ? "dark" : "light";
+      document.body.setAttribute("data-theme", newTheme);
+      await updateDoc(userRef, { theme: newTheme });
+    }
 
-/* ========== Storage ========== */
-function loadProducts(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw) return JSON.parse(raw);
-  }catch(e){ console.error('loadProducts error',e) }
-  // fallback
-  return defaultProducts.slice();
-}
-function saveProducts(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-  flashMessage('Saved ✓');
-}
-
-/* ========== Render grid ========== */
-function renderGrid(){
-  productGrid.innerHTML = '';
-  products.forEach((p, idx) => {
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.innerHTML = `
-      <div class="card-media"><img src="${escapeHtml(p.img)}" alt="${escapeHtml(p.title)}"></div>
-      <div class="card-body">
-        <div class="title">${escapeHtml(p.title)}</div>
-        <div class="desc">${escapeHtml(p.desc)}</div>
-        <div class="row">
-          <div class="price">₦${numberWithCommas(p.price)}</div>
-          <div class="mini">SKU: ${p.id}</div>
-        </div>
-        <div class="card-actions">
-          <button class="btn-sm btn-buy" onclick="onBuy('${p.id}')">Buy</button>
-          <button class="btn-sm btn-edit" onclick="openEdit('${p.id}')"><i class="fa-solid fa-pen"></i>&nbsp;Edit</button>
-        </div>
-      </div>
-    `;
-    productGrid.appendChild(el);
-  });
-}
-
-/* ========== Upload file (add new product with chosen image) ========== */
-fileInput.addEventListener('change', async (e) => {
-  const file = e.target.files[0];
-  if(!file) return;
-  const b64 = await fileToDataURL(file);
-  const newProd = {
-    id: 'p' + Date.now(),
-    title: 'New Product',
-    price: '0',
-    desc: 'Description here',
-    img: b64
-  };
-  products.unshift(newProd);
-  renderGrid();
-  saveProducts();
-  fileInput.value = '';
-});
-
-/* Bulk sample add */
-btnBulkAdd.addEventListener('click', () => {
-  const sample = {
-    id: 'p' + Date.now(),
-    title: 'Sample Item',
-    price: '1999',
-    desc: 'Sample description',
-    img: 'https://images.unsplash.com/photo-1523475496153-3d6ccf5a9e24?auto=format&fit=crop&w=800&q=60'
-  };
-  products.unshift(sample);
-  renderGrid();
-  flashMessage('Sample product added');
-});
-
-/* Save all */
-btnSaveAll.addEventListener('click', () => {
-  saveProducts();
-});
-
-/* Reset */
-btnReset.addEventListener('click', () => {
-  if(!confirm('Reset all products to default? This clears your changes.')) return;
-  products = defaultProducts.slice();
-  saveProducts();
-  renderGrid();
-});
-
-/* ========== Edit modal ========== */
-const modal = document.getElementById('modal');
-const modalImage = document.getElementById('modalImage');
-const modalPreview = document.getElementById('modalPreview');
-const modalTitle = document.getElementById('modalTitle');
-const modalPrice = document.getElementById('modalPrice');
-const modalDesc = document.getElementById('modalDesc');
-const modalClose = document.getElementById('modalClose');
-const modalSave = document.getElementById('modalSave');
-let editingId = null;
-
-function openEdit(id){
-  editingId = id;
-  const p = products.find(x=>x.id===id);
-  modalPreview.src = p.img || '';
-  modalTitle.value = p.title;
-  modalPrice.value = p.price;
-  modalDesc.value = p.desc;
-  modal.classList.add('show');
-}
-modalClose.addEventListener('click', ()=> modal.classList.remove('show'));
-
-modalImage.addEventListener('change', async (e)=>{
-  const f = e.target.files[0];
-  if(!f) return;
-  const b64 = await fileToDataURL(f);
-  modalPreview.src = b64;
-});
-
-modalSave.addEventListener('click', ()=>{
-  if(!editingId) return;
-  const p = products.find(x=>x.id===editingId);
-  if(!p) return;
-  p.img = modalPreview.src;
-  p.title = modalTitle.value.trim() || 'Untitled';
-  p.price = (modalPrice.value.replace(/[^0-9]/g,'') || '0');
-  p.desc = modalDesc.value.trim() || '';
-  renderGrid();
-  saveProducts();
-  modal.classList.remove('show');
-});
-
-/* ========== Helpers & small UI ========== */
-function fileToDataURL(file){
-  return new Promise((res, rej)=>{
-    const reader = new FileReader();
-    reader.onload = ()=> res(reader.result);
-    reader.onerror = rej;
-    reader.readAsDataURL(file);
-  });
-}
-function numberWithCommas(x){ return String(x).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
-function escapeHtml(s){ return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-function onBuy(id){
-  alert('Buy flow not yet connected. You can integrate Moniepoint / Bitget later.');
-}
-function openUpload(){
-  document.getElementById('fileInput').click();
-}
-function scrollToGrid(){
-  document.getElementById('gridWrap').scrollIntoView({behavior:'smooth'});
-}
-
-/* tiny toast */
-function flashMessage(msg){
-  const t = document.createElement('div');
-  t.textContent = msg;
-  t.style.position='fixed';
-  t.style.right='18px';
-  t.style.bottom='18px';
-  t.style.padding='10px 14px';
-  t.style.background='linear-gradient(90deg,var(--primary),var(--accent))';
-  t.style.color='#fff';
-  t.style.borderRadius='10px';
-  t.style.boxShadow='0 8px 30px rgba(3,10,30,0.2)';
-  t.style.zIndex=9999;
-  document.body.appendChild(t);
-  setTimeout(()=> t.remove(), 2100);
-}
-
-/* Init: ensure storage saved if empty */
-if(!localStorage.getItem(STORAGE_KEY)){
-  saveProducts();
-}
-
-/* close modal on outside click */
-modal.addEventListener('click', (e)=>{
-  if(e.target === modal) modal.classList.remove('show');
-});
-</script>
+    toggle.addEventListener("click", toggleTheme);
+    applyTheme();
+  </script>
 </body>
 </html>
+
+    
+            
