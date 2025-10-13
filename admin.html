@@ -12,7 +12,7 @@
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
     import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
 
-    // ✅ Your Firebase Config (real one)
+    // ✅ Your Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyBLoh_gTdltfX2hPwV5oM_19M10icjghAE",
       authDomain: "ben-gadgets-5fd67.firebaseapp.com",
@@ -37,9 +37,10 @@
 
         const name = document.getElementById('productName').value;
         const price = document.getElementById('productPrice').value;
+        const description = document.getElementById('productDescription').value;
         const file = document.getElementById('productImage').files[0];
 
-        if (!name || !price || !file) {
+        if (!name || !price || !description || !file) {
           alert("⚠️ Please fill all fields!");
           return;
         }
@@ -52,6 +53,7 @@
           await addDoc(collection(db, "products"), {
             name,
             price,
+            description,
             imageUrl
           });
 
@@ -76,39 +78,69 @@
 
     h1 {
       color: #f5c25c;
+      margin-bottom: 20px;
     }
 
     form {
       background-color: #1c1f26;
-      padding: 20px;
+      padding: 25px;
       border-radius: 12px;
-      width: 320px;
+      width: 340px;
       margin: 30px auto;
+      box-shadow: 0 0 20px rgba(245, 194, 92, 0.1);
+      text-align: left;
     }
 
-    input {
-      width: 90%;
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #f5c25c;
+    }
+
+    input, textarea {
+      width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin-top: 5px;
       border: none;
       border-radius: 6px;
+      outline: none;
+      font-size: 14px;
     }
 
     input[type="file"] {
       background-color: #fff;
+      color: #000;
+    }
+
+    textarea {
+      resize: none;
+      height: 90px;
     }
 
     button {
+      width: 100%;
       background-color: #f5c25c;
       border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
+      padding: 12px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 16px;
+      margin-top: 15px;
+      transition: all 0.3s ease;
     }
 
     button:hover {
       transform: scale(1.05);
+      background-color: #ffd65b;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -117,10 +149,21 @@
   <h1>🛠️ BenGadgets Admin Upload</h1>
 
   <form id="uploadForm">
-    <input type="text" id="productName" placeholder="Product Name" required><br>
-    <input type="number" id="productPrice" placeholder="Product Price (₦)" required><br>
-    <input type="file" id="productImage" accept="image/*" required><br>
+    <label for="productName">Product Name</label>
+    <input type="text" id="productName" placeholder="Enter product name" required>
+
+    <label for="productPrice">Price (₦)</label>
+    <input type="number" id="productPrice" placeholder="Enter price" required>
+
+    <label for="productDescription">Product Description</label>
+    <textarea id="productDescription" placeholder="Write a short description..." required></textarea>
+
+    <label for="productImage">Product Image</label>
+    <input type="file" id="productImage" accept="image/*" required>
+
     <button type="submit">Upload Product</button>
   </form>
+
+  <p class="footer-note">Only admins can access this page — BenGadgets © 2025</p>
 </body>
 </html>
