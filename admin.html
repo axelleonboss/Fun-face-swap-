@@ -63,21 +63,6 @@
         }
       });
     });
-
-    // ✅ Hide page unless correct secret key is in the URL
-    const params = new URLSearchParams(window.location.search);
-    const key = params.get("key");
-    const allowedKey = "BENE2025SECRET"; // 👈 Change this secret anytime you want
-
-    window.addEventListener("DOMContentLoaded", () => {
-      if (key !== allowedKey) {
-        document.getElementById("locked").style.display = "block";
-        document.getElementById("adminPanel").style.display = "none";
-      } else {
-        document.getElementById("locked").style.display = "none";
-        document.getElementById("adminPanel").style.display = "block";
-      }
-    });
   </script>
 
   <style>
@@ -125,35 +110,17 @@
     button:hover {
       transform: scale(1.05);
     }
-
-    #locked {
-      display: none;
-      margin-top: 100px;
-    }
-
-    #locked h2 {
-      color: #f66;
-    }
   </style>
 </head>
 
 <body>
-  <!-- 🔒 Hidden Lock Screen -->
-  <div id="locked">
-    <h2>🚫 Access Denied</h2>
-    <p>You are not authorized to view this page.</p>
-  </div>
+  <h1>🛠️ BenGadgets Admin Upload</h1>
 
-  <!-- ✅ Real Admin Panel (hidden by default) -->
-  <div id="adminPanel" style="display:none;">
-    <h1>🛠️ BenGadgets Admin Upload</h1>
-
-    <form id="uploadForm">
-      <input type="text" id="productName" placeholder="Product Name" required><br>
-      <input type="number" id="productPrice" placeholder="Product Price (₦)" required><br>
-      <input type="file" id="productImage" accept="image/*" required><br>
-      <button type="submit">Upload Product</button>
-    </form>
-  </div>
+  <form id="uploadForm">
+    <input type="text" id="productName" placeholder="Product Name" required><br>
+    <input type="number" id="productPrice" placeholder="Product Price (₦)" required><br>
+    <input type="file" id="productImage" accept="image/*" required><br>
+    <button type="submit">Upload Product</button>
+  </form>
 </body>
 </html>
