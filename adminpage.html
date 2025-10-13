@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BenGadgets Admin Upload</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <script type="module">
+    // ✅ Import Firebase SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-storage.js";
+
+    // ✅ Your Firebase Config (your real one)
+    const firebaseConfig = {
+      apiKey: "AIzaSyBLoh_gTdltfX2hPwV5oM_19M10icjghAE",
+      authDomain: "ben-gadgets-5fd67.firebaseapp.com",
+      databaseURL: "https://ben-gadgets-5fd67-default-rtdb.firebaseio.com",
+      projectId: "ben-gadgets-5fd67",
+      storageBucket: "ben-gadgets-5fd67.appspot.com",
+      messagingSenderId: "588194741861",
+      appId: "1:588194741861:web:7c9bef05004f271a21908c"
+    };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // ✅ Handle Product Upload
+    document.addEventListener('DOMContentLoaded', () => {
+      const uploadForm = document.getElementById('uploadForm');
+
+      uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('productName').value;
+        const price = document.getElementById('productPrice').value;
+        const file = document.getElementById('productImage').files[0];
+
+        if (!name || !price || !file) {
+          alert("⚠️ Please fill all fields!");
+          return;
+        }
+
+        try {
+          // Upload image to Firebase Storage
+          const storageRef = ref(storage, `products/${file.name}`);
+          await uploadBytes(storageRef, file);
+          const imageUrl = await getDownloadURL(storageRef);
+
+          // Save product data to Firestore
+          await addDoc(collection(db, "products"), {
+            name,
+            price,
+            imageUrl
+          });
+
+          alert("✅ Product uploaded successfully!");
+          uploadForm.reset();
+        } catch (error) {
+          console.error("Error uploading product:", error);
+          alert("❌ Failed to upload product. Check console for details.");
+        }
+      });
+    });
+  </script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0e1116;
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #f5c25c;
+    }
+
+    form {
+      background-color: #1c1f26;
+      padding: 20px;
+      border-radius: 12px;
+      width: 320px;
+      margin: 30px auto;
+      box-shadow: 0 0 10px rgba(245, 194, 92, 0.3);
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    input[type="file"] {
+      background-color: #fff;
+      color: #000;
+    }
+
+    button {
+      background-color: #f5c25c;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #ffd877;
+    }
+  </style>
+</head>
+<body>
+  <h1>🛠️ BenGadgets Admin Upload</h1>
+
+  <form id="uploadForm">
+    <input type="text" id="productName" placeholder="Product Name" required><br>
+    <input type="number" id="productPrice" placeholder="Product Price (₦)" required><br>
+    <input type="file" id="productImage" accept="image/*" required><br>
+    <button type="submit">Upload Product</button>
+  </form>
+</body>
+</html>
