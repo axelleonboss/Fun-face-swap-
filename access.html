@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restricted Access</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0d1117;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: #161b22;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+      text-align: center;
+    }
+    input {
+      width: 250px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      margin-top: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+    button {
+      background-color: #238636;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2ea043;
+    }
+    .error {
+      color: #ff4d4f;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🔒 Restricted Area</h2>
+    <p>Enter secret access key to continue:</p>
+    <input type="password" id="accessKey" placeholder="Enter key here">
+    <br>
+    <button onclick="checkKey()">Access Admin</button>
+    <p id="errorMsg" class="error"></p>
+  </div>
+
+  <script>
+    function checkKey() {
+      const inputKey = document.getElementById("accessKey").value.trim();
+      const correctKey = "Bene2025secret"; // your private key (case-sensitive)
+
+      if (inputKey === correctKey) {
+        window.location.href = "admin.html"; // redirects to your hidden admin page
+      } else {
+        document.getElementById("errorMsg").textContent = "❌ Access Denied! Wrong Key.";
+      }
+    }
+  </script>
+</body>
+</html>
