@@ -1,0 +1,167 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Bensupplier </title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #F3F4F6;
+      color: #111827;
+    }
+    header {
+      background: #1E40AF;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    .contact-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      font-family: 'Poppins', sans-serif;
+      color: #1E40AF;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      background: #F97316;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: #fb923c;
+    }
+    .section {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: #fff;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .section h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #1E40AF;
+    }
+    .section p {
+      max-width: 700px;
+      margin: 0 auto 1rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #111827;
+    }
+    form.newsletter input[type="email"] {
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-right: 0.5rem;
+      width: 250px;
+    }
+    form.newsletter button {
+      background: #1E40AF;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    form.newsletter button:hover {
+      background: #3749c7;
+    }
+    footer {
+      background: #1E40AF;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Contact Us</h1>
+  </header>
+
+  <div class="contact-container">
+    <h2>We’d love to hear from you!</h2>
+    <form action="https://formspree.io/f/myzdbanr" method="POST">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Type your message..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <!-- ✅ Testimonials Section -->
+  <section class="section" id="testimonials">
+    <h3>What Our Students Say</h3>
+    <p>"Ben supplier is one of the cheapest store ever seen on earth " – Mary A.</p>
+    <p>"our store look simple but powerful. I’ve purchase some product and i was awarded will free delivery, i can bodily say this is the best store ever." – David O.</p>
+  </section>
+
+  <!-- ✅ FAQ Section -->
+  <section class="section" id="faq">
+    <h3>Frequently Asked Questions</h3>
+    <p><strong>Q:</strong> How soon will I get a reply to my contact message?<br>
+       <strong>A:</strong> We usually respond within 24 hours.</p>
+    <p><strong>Q:</strong> Do you offer free delivery?<br>
+       <strong>A:</strong> Yes, we have free delivery to some state and product, feel free to access.</p>
+  </section>
+
+  <!-- ✅ Newsletter Signup -->
+  <section class="section" id="newsletter">
+    <h3>Stay Updated</h3>
+    <form class="newsletter" action="https://formspree.io/f/myzdbanr" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Bensupplier. All rights reserved.</p>
+  </footer>
+</body>
+</html>
