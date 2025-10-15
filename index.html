@@ -3,385 +3,1176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ben Supplier - Quality Essentials for Everyday Life</title>
+    <title>Ben Supplier - Your Trusted E-Commerce Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --accent-color: #2563eb;
-            --secondary-color: #6b7280;
-            --card-bg: #f8fafc;
-            --border-color: #e2e8f0;
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #0f172a;
-            --text-color: #f1f5f9;
-            --accent-color: #3b82f6;
-            --secondary-color: #94a3b8;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            box-sizing: border-box;
         }
-
-        header {
-            padding: 1rem 5%;
-            background-color: var(--bg-color);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
         }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent-color);
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
         }
-
-        .logo span {
-            color: var(--text-color);
-            font-weight: normal;
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
         }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
+        .bounce-in {
+            animation: bounceIn 0.6s ease-out;
         }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
         }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .cart-badge {
+            animation: pulse 2s infinite;
         }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-color);
-        }
-
-        .theme-toggle:hover {
-            background-color: var(--card-bg);
-        }
-
-        .theme-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        .hero {
-            padding: 4rem 5%;
-            text-align: center;
-            background: linear-gradient(135deg, var(--accent-color) 0%, #1e40af 100%);
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            background-color: white;
-            color: var(--accent-color);
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .trust-bar {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            padding: 2rem 5%;
-            background-color: var(--card-bg);
-            flex-wrap: wrap;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--secondary-color);
-        }
-
-        .categories {
-            padding: 4rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2rem;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .category-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 2rem;
-            text-align: center;
-            text-decoration: none;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s;
-        }
-
-        .featured-products {
-            padding: 4rem 5%;
-            background-color: var(--card-bg);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .product-card {
-            background-color: var(--bg-color);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .product-image {
-            width: 100%;
-            height: 200px;
-            background-color: #ddd;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--card-bg), var(--border-color));
-        }
-
-        .product-price {
-            color: var(--accent-color);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin: 0.5rem 0;
-        }
-
-        .add-to-cart {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .about {
-            padding: 4rem 5%;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        footer {
-            background-color: var(--card-bg);
-            padding: 3rem 5%;
-            border-top: 1px solid var(--border-color);
-            text-align: center;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="nav-container">
-            <div class="logo">Ben<span>Supplier</span></div>
-    <nav>
-      <a href="index.html#home">Home</a>
-      <a href="product.html#product">product</a>
-      <a href="course.html#course">course</a>
-      <a href="scheme.html#scheme">scheme</a>
-      <a href="contact.html#contact">Contact</a>
-      <a href="server.js"#server">server</a>
-    </nav>
-  </header>  
-
-            
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <svg class="theme-icon" fill="currentColor" viewBox="0 0 20 20">
-                        <path id="sun-icon" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" style="display: none;"></path>
-                        <path id="moon-icon" d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                    </svg>
-                </button>
-                
-                <a href="#" class="cta-button">Cart (0)</a>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl sm:text-2xl font-bold text-indigo-600">🏪 Ben Supplier</h1>
+                    </div>
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:block ml-10">
+                        <div class="flex items-baseline space-x-4">
+                            <button onclick="showPage('home')" class="nav-btn text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</button>
+                            <button onclick="showPage('products')" class="nav-btn text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Products</button>
+                            <button onclick="showPage('admin')" class="nav-btn text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Admin Panel</button>
+                            <button onclick="showPage('orders')" class="nav-btn text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Orders</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <!-- Cart Button -->
+                    <button onclick="showPage('cart')" class="relative bg-indigo-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base">
+                        <span class="hidden sm:inline">🛒 Cart</span>
+                        <span class="sm:hidden">🛒</span>
+                        <span id="cartCount" class="cart-badge absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-xs font-bold">0</span>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden bg-gray-100 p-2 rounded-lg hover:bg-gray-200 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
-    </header>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="md:hidden bg-white border-t border-gray-200 hidden">
+            <div class="px-4 py-3 space-y-2">
+                <button onclick="showPage('home'); closeMobileMenu()" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors font-medium">
+                    🏠 Home
+                </button>
+                <button onclick="showPage('products'); closeMobileMenu()" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors font-medium">
+                    📦 Products
+                </button>
+                <button onclick="showPage('admin'); closeMobileMenu()" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors font-medium">
+                    ⚙️ Admin Panel
+                </button>
+                <button onclick="showPage('orders'); closeMobileMenu()" class="mobile-nav-btn w-full text-left px-3 py-3 rounded-lg text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors font-medium">
+                    📋 Orders
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    <section class="hero">
-        <h1>Quality Essentials for Everyday Life</h1>
-        <p>Your trusted supplier for affordable small items, clothes, and daily necessities</p>
-        <a href="#" class="cta-button">Shop Best Sellers</a>
-    </section>
+    <!-- Home Page -->
+    <div id="homePage" class="page">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <!-- Hero Section -->
+            <div class="text-center mb-12 sm:mb-16 fade-in px-4">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">Welcome to Ben Supplier</h2>
+                <p class="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">Your one-stop destination for quality products at unbeatable prices. Discover thousands of items from trusted suppliers worldwide.</p>
+                <button onclick="showPage('products')" class="bg-indigo-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:bg-indigo-700 transform hover:scale-105 transition-all w-full sm:w-auto">
+                    Shop Now 🚀
+                </button>
+            </div>
 
-    <div class="trust-bar">
-        <div class="trust-item">
-            <span>✓</span> Secure Checkout
-        </div>
-        <div class="trust-item">
-            <span>🚚</span> Fast Shipping
-        </div>
-        <div class="trust-item">
-            <span>💬</span> 24/7 Support
-        </div>
-        <div class="trust-item">
-            <span>₦</span> Prices in Naira
+            <!-- Features -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16 px-4">
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg text-center fade-in">
+                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">🚚</div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Fast Delivery</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">Quick and reliable shipping to your doorstep</p>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg text-center fade-in">
+                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">🔒</div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Secure Payment</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">Your transactions are protected and encrypted</p>
+                </div>
+                <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg text-center fade-in sm:col-span-2 lg:col-span-1">
+                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">⭐</div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Quality Products</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">Carefully curated items from trusted suppliers</p>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="bg-white rounded-xl shadow-lg p-6 sm:p-8 fade-in mx-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-bold text-indigo-600 mb-1 sm:mb-2">10,000+</div>
+                        <div class="text-gray-600 text-sm sm:text-base">Products</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-bold text-indigo-600 mb-1 sm:mb-2">50,000+</div>
+                        <div class="text-gray-600 text-sm sm:text-base">Happy Customers</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-bold text-indigo-600 mb-1 sm:mb-2">99.9%</div>
+                        <div class="text-gray-600 text-sm sm:text-base">Uptime</div>
+                    </div>
+                    <div>
+                        <div class="text-2xl sm:text-3xl font-bold text-indigo-600 mb-1 sm:mb-2">24/7</div>
+                        <div class="text-gray-600 text-sm sm:text-base">Support</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <section class="categories">
-        <h2 class="section-title">Shop by Category</h2>
-        <div class="category-grid">
-            <a href="#" class="category-card">
-                <h3>Travel Comfort</h3>
-                <p>Airport clothes & essentials</p>
-            </a>
-            <a href="#" class="category-card">
-                <h3>Home Essentials</h3>
-                <p>Daily useful items</p>
-            </a>
-            <a href="#" class="category-card">
-                <h3>Tech Accessories</h3>
-                <p>Affordable gadgets</p>
-            </a>
-            <a href="#" class="category-card">
-                <h3>Budget Finds</h3>
-                <p>Quality affordable items</p>
-            </a>
-        </div>
-    </section>
-
-    <section class="featured-products">
-        <h2 class="section-title">Customer Favorites</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <div class="product-image"></div>
-                <h3>Comfort Travel Pillow</h3>
-                <p>Perfect for airport naps and long journeys</p>
-                <div class="product-price">₦5,000</div>
-                <button class="add-to-cart">Add to Cart</button>
+    <!-- Products Page -->
+    <div id="productsPage" class="page hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 sm:mb-8 space-y-4 sm:space-y-0">
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900">Our Products</h2>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <select id="categoryFilter" onchange="filterProducts()" class="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                        <option value="">All Categories</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Home">Home & Garden</option>
+                        <option value="Sports">Sports</option>
+                    </select>
+                    <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()" class="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                </div>
             </div>
-            <div class="product-card">
-                <div class="product-image"></div>
-                <h3>Portable Phone Stand</h3>
-                <p>Adjustable and lightweight</p>
-                <div class="product-price">₦3,500</div>
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
-            <div class="product-card">
-                <div class="product-image"></div>
-                <h3>Cozy Home Socks</h3>
-                <p>Ultra soft for home comfort</p>
-                <div class="product-price">₦2,700</div>
-                <button class="add-to-cart">Add to Cart</button>
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Products will be loaded here -->
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="about">
-        <h2 class="section-title">Why Choose Ben Supplier?</h2>
-        <p>We're committed to providing quality  items at affordable prices. As a beginner-friendly store, we focus on building trust with every customer.</p>
-    </section>
+    <!-- Admin Panel -->
+    <div id="adminPage" class="page hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Admin Panel - Product Management</h2>
+            
+            <!-- Add Product Form -->
+            <div class="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+                <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Add New Product</h3>
+                <form id="addProductForm" class="space-y-4 sm:space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Product Name</label>
+                            <input type="text" id="productName" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Price ($)</label>
+                            <input type="number" id="productPrice" step="0.01" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                            <select id="productCategory" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                                <option value="">Select Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Home">Home & Garden</option>
+                                <option value="Sports">Sports</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Stock Quantity</label>
+                            <input type="number" id="productStock" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <textarea id="productDescription" rows="3" class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Product Images (Up to 4 images)</label>
+                        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-3 sm:p-4 text-center hover:border-indigo-400 transition-colors" onclick="triggerImageUpload(0)">
+                                <input type="file" id="productImage0" accept="image/*" class="hidden" onchange="handleMultipleImageUpload(event, 0)">
+                                <div id="imagePreview0" class="image-preview">
+                                    <div class="text-gray-400 text-2xl sm:text-3xl mb-1 sm:mb-2">📷</div>
+                                    <p class="text-gray-500 text-xs sm:text-sm">Main Image</p>
+                                    <p class="text-xs text-gray-400 hidden sm:block">Click to upload</p>
+                                </div>
+                            </div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-3 sm:p-4 text-center hover:border-indigo-400 transition-colors" onclick="triggerImageUpload(1)">
+                                <input type="file" id="productImage1" accept="image/*" class="hidden" onchange="handleMultipleImageUpload(event, 1)">
+                                <div id="imagePreview1" class="image-preview">
+                                    <div class="text-gray-400 text-2xl sm:text-3xl mb-1 sm:mb-2">📷</div>
+                                    <p class="text-gray-500 text-xs sm:text-sm">Image 2</p>
+                                    <p class="text-xs text-gray-400 hidden sm:block">Click to upload</p>
+                                </div>
+                            </div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-3 sm:p-4 text-center hover:border-indigo-400 transition-colors" onclick="triggerImageUpload(2)">
+                                <input type="file" id="productImage2" accept="image/*" class="hidden" onchange="handleMultipleImageUpload(event, 2)">
+                                <div id="imagePreview2" class="image-preview">
+                                    <div class="text-gray-400 text-2xl sm:text-3xl mb-1 sm:mb-2">📷</div>
+                                    <p class="text-gray-500 text-xs sm:text-sm">Image 3</p>
+                                    <p class="text-xs text-gray-400 hidden sm:block">Click to upload</p>
+                                </div>
+                            </div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-3 sm:p-4 text-center hover:border-indigo-400 transition-colors" onclick="triggerImageUpload(3)">
+                                <input type="file" id="productImage3" accept="image/*" class="hidden" onchange="handleMultipleImageUpload(event, 3)">
+                                <div id="imagePreview3" class="image-preview">
+                                    <div class="text-gray-400 text-2xl sm:text-3xl mb-1 sm:mb-2">📷</div>
+                                    <p class="text-gray-500 text-xs sm:text-sm">Image 4</p>
+                                    <p class="text-xs text-gray-400 hidden sm:block">Click to upload</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <p class="text-xs text-gray-500">Supported: JPG, PNG, GIF, WebP • Max: 5MB each</p>
+                            <button type="button" onclick="clearAllImages()" class="mt-2 text-red-500 hover:text-red-700 text-sm transition-colors">
+                                🗑️ Clear All Images
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                        Add Product ✨
+                    </button>
+                </form>
+            </div>
 
-    <footer>
-        <p>&copy; 2025 Ben Supplier. Your reliable source for everyday essentials.</p>
-    </footer>
+            <!-- Product Management -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-xl font-bold mb-6">Manage Products</h3>
+                <div id="adminProductsList" class="space-y-4">
+                    <!-- Admin products list will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Page -->
+    <div id="cartPage" class="page hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Shopping Cart</h2>
+            <div id="cartItems" class="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+                <!-- Cart items will be loaded here -->
+            </div>
+            <div id="checkoutSection" class="bg-white rounded-xl shadow-lg p-4 sm:p-6 lg:p-8 hidden">
+                <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-6">Checkout</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-4">Shipping Information</h4>
+                        <form id="checkoutForm" class="space-y-4">
+                            <input type="text" placeholder="Full Name" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                            <input type="email" placeholder="Email Address" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                            <input type="text" placeholder="Address" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                            <div class="grid grid-cols-2 gap-4">
+                                <input type="text" placeholder="City" required class="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                                <input type="text" placeholder="ZIP Code" required class="px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Payment Method</h4>
+                        <div class="space-y-4">
+                            <div class="border-2 border-indigo-200 rounded-lg p-4 bg-indigo-50">
+                                <label class="flex items-center mb-4">
+                                    <input type="radio" name="payment" value="card" checked class="mr-3" onchange="showPaymentForm('card')">
+                                    <span class="font-semibold">💳 Credit/Debit Card</span>
+                                </label>
+                                <div id="cardForm" class="space-y-3">
+                                    <input type="text" placeholder="Card Number (1234 5678 9012 3456)" maxlength="19" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500" oninput="formatCardNumber(this)">
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <input type="text" placeholder="MM/YY" maxlength="5" class="px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500" oninput="formatExpiry(this)">
+                                        <input type="text" placeholder="CVV" maxlength="4" class="px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500">
+                                    </div>
+                                    <input type="text" placeholder="Cardholder Name" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500">
+                                    <div class="flex items-center space-x-2 text-sm text-gray-600">
+                                        <span>🔒 Secured by 256-bit SSL encryption</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <label class="flex items-center mb-4">
+                                    <input type="radio" name="payment" value="paypal" class="mr-3" onchange="showPaymentForm('paypal')">
+                                    <span class="font-semibold">🅿️ PayPal</span>
+                                </label>
+                                <div id="paypalForm" class="hidden">
+                                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                                        <div class="text-blue-600 font-semibold mb-2">PayPal Integration</div>
+                                        <p class="text-sm text-blue-700 mb-3">You'll be redirected to PayPal to complete your payment securely</p>
+                                        <div class="bg-blue-600 text-white px-4 py-2 rounded inline-block">
+                                            <span class="text-sm">🅿️ Pay with PayPal</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <label class="flex items-center mb-4">
+                                    <input type="radio" name="payment" value="crypto" class="mr-3" onchange="showPaymentForm('crypto')">
+                                    <span class="font-semibold">₿ Cryptocurrency</span>
+                                </label>
+                                <div id="cryptoForm" class="hidden">
+                                    <div class="space-y-3">
+                                        <select class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500">
+                                            <option>Bitcoin (BTC)</option>
+                                            <option>Ethereum (ETH)</option>
+                                            <option>Litecoin (LTC)</option>
+                                            <option>Dogecoin (DOGE)</option>
+                                        </select>
+                                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
+                                            <div class="text-sm text-gray-600 mb-2">Wallet Address:</div>
+                                            <div class="font-mono text-xs bg-white p-2 rounded border">1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</div>
+                                            <div class="text-xs text-gray-500 mt-2">Scan QR code or copy address above</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <label class="flex items-center mb-4">
+                                    <input type="radio" name="payment" value="applepay" class="mr-3" onchange="showPaymentForm('applepay')">
+                                    <span class="font-semibold">🍎 Apple Pay</span>
+                                </label>
+                                <div id="applepayForm" class="hidden">
+                                    <div class="bg-black text-white rounded-lg p-4 text-center">
+                                        <div class="text-white font-semibold mb-2">🍎 Pay with Apple Pay</div>
+                                        <p class="text-sm text-gray-300 mb-3">Use Touch ID or Face ID to pay securely</p>
+                                        <div class="bg-white text-black px-4 py-2 rounded inline-block">
+                                            <span class="text-sm font-semibold">Pay with 🍎 Pay</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <label class="flex items-center mb-4">
+                                    <input type="radio" name="payment" value="googlepay" class="mr-3" onchange="showPaymentForm('googlepay')">
+                                    <span class="font-semibold">🔵 Google Pay</span>
+                                </label>
+                                <div id="googlepayForm" class="hidden">
+                                    <div class="bg-blue-600 text-white rounded-lg p-4 text-center">
+                                        <div class="text-white font-semibold mb-2">Google Pay</div>
+                                        <p class="text-sm text-blue-100 mb-3">Pay quickly and securely with Google Pay</p>
+                                        <div class="bg-white text-blue-600 px-4 py-2 rounded inline-block">
+                                            <span class="text-sm font-semibold">🔵 Pay with Google</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+                            <div class="flex justify-between items-center text-lg font-bold mb-3">
+                                <span>Total:</span>
+                                <span id="cartTotal">$0.00</span>
+                            </div>
+                            <div class="text-xs text-gray-600 space-y-1">
+                                <div class="flex items-center">
+                                    <span class="mr-2">🔒</span>
+                                    <span>SSL Encrypted & PCI Compliant</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="mr-2">🛡️</span>
+                                    <span>Fraud Protection Enabled</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="mr-2">💳</span>
+                                    <span>All Major Cards Accepted</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="processPayment()" class="w-full mt-4 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors transform hover:scale-105">
+                            🔒 Complete Secure Payment 🎉
+                        </button>
+                        <div class="mt-3 text-center">
+                            <div class="text-xs text-gray-500 mb-2">Accepted Payment Methods:</div>
+                            <div class="flex justify-center space-x-3 text-2xl">
+                                <span title="Visa">💳</span>
+                                <span title="Mastercard">💳</span>
+                                <span title="American Express">💳</span>
+                                <span title="PayPal">🅿️</span>
+                                <span title="Apple Pay">🍎</span>
+                                <span title="Google Pay">🔵</span>
+                                <span title="Bitcoin">₿</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Orders Page -->
+    <div id="ordersPage" class="page hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Order Management</h2>
+            <div id="ordersList" class="space-y-4 sm:space-y-6">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl p-6 sm:p-8 max-w-md w-full mx-4 bounce-in">
+            <div class="text-center">
+                <div class="text-4xl sm:text-6xl mb-3 sm:mb-4">🎉</div>
+                <h3 class="text-xl sm:text-2xl font-bold text-green-600 mb-3 sm:mb-4">Success!</h3>
+                <p id="successMessage" class="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base"></p>
+                <button onclick="closeModal()" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors w-full sm:w-auto">
+                    Great!
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
-        const themeToggle = document.getElementById('themeToggle');
-        const sunIcon = document.getElementById('sun-icon');
-        const moonIcon = document.getElementById('moon-icon');
-        
-        const savedTheme = localStorage.getItem('theme') || 
-                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        updateIcons(savedTheme);
+        // Global state
+        let products = [
+            {
+                id: 1,
+                name: "Wireless Bluetooth Headphones",
+                price: 79.99,
+                category: "Electronics",
+                stock: 50,
+                description: "High-quality wireless headphones with noise cancellation",
+                image: "🎧"
+            },
+            {
+                id: 2,
+                name: "Premium Cotton T-Shirt",
+                price: 24.99,
+                category: "Clothing",
+                stock: 100,
+                description: "Comfortable 100% cotton t-shirt in various colors",
+                image: "👕"
+            },
+            {
+                id: 3,
+                name: "Smart Home Security Camera",
+                price: 129.99,
+                category: "Electronics",
+                stock: 25,
+                description: "1080p HD security camera with night vision",
+                image: "📹"
+            },
+            {
+                id: 4,
+                name: "Yoga Mat Pro",
+                price: 39.99,
+                category: "Sports",
+                stock: 75,
+                description: "Non-slip yoga mat perfect for all exercises",
+                image: "🧘"
+            }
+        ];
 
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateIcons(newTheme);
-        });
+        let cart = [];
+        let orders = [];
+        let currentPage = 'home';
 
-        function updateIcons(theme) {
-            if (theme === 'light') {
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            } else {
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
+        // Navigation
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(page + 'Page').classList.remove('hidden');
+            currentPage = page;
+
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-indigo-600', 'font-bold');
+                btn.classList.add('text-gray-700');
+            });
+
+            if (page === 'products') {
+                loadProducts();
+            } else if (page === 'admin') {
+                loadAdminProducts();
+            } else if (page === 'cart') {
+                loadCart();
+            } else if (page === 'orders') {
+                loadOrders();
             }
         }
 
-        updateIcons(savedTheme);
+        // Product management
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = products.map(product => {
+                // Determine if product has uploaded images or uses emoji
+                const hasRealImages = product.images && product.images.length > 0;
+                const displayImage = hasRealImages ? 
+                    `<img src="${product.images[0].data}" alt="${product.name}" class="w-full h-40 sm:h-48 object-cover rounded-lg mb-3 sm:mb-4">` :
+                    `<div class="text-4xl sm:text-6xl mb-3 sm:mb-4">${product.image}</div>`;
+                
+                return `
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow fade-in">
+                        <div class="p-4 sm:p-6 text-center">
+                            ${displayImage}
+                            ${hasRealImages && product.images.length > 1 ? 
+                                `<div class="flex justify-center space-x-1 mb-2 sm:mb-3">
+                                    ${product.images.slice(0, 4).map((img, index) => 
+                                        `<div class="w-2 h-2 rounded-full ${index === 0 ? 'bg-indigo-600' : 'bg-gray-300'}"></div>`
+                                    ).join('')}
+                                    ${product.images.length > 1 ? `<span class="text-xs text-gray-500 ml-2 hidden sm:inline">+${product.images.length - 1} more</span>` : ''}
+                                </div>` : ''
+                            }
+                            <h3 class="text-base sm:text-lg font-bold mb-2">${product.name}</h3>
+                            <p class="text-gray-600 text-xs sm:text-sm mb-3 line-clamp-2">${product.description}</p>
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 sm:mb-4 space-y-1 sm:space-y-0">
+                                <span class="text-xl sm:text-2xl font-bold text-indigo-600">$${product.price}</span>
+                                <span class="text-xs sm:text-sm text-gray-500">${product.stock} in stock</span>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors text-sm sm:text-base">
+                                Add to Cart 🛒
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterProducts() {
+            const category = document.getElementById('categoryFilter').value;
+            const filtered = category ? products.filter(p => p.category === category) : products;
+            displayFilteredProducts(filtered);
+        }
+
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.description.toLowerCase().includes(query)
+            );
+            displayFilteredProducts(filtered);
+        }
+
+        function displayFilteredProducts(filtered) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = filtered.map(product => `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow fade-in">
+                    <div class="p-6 text-center">
+                        <div class="text-6xl mb-4">${product.image}</div>
+                        <h3 class="text-lg font-bold mb-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mb-3">${product.description}</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-indigo-600">$${product.price}</span>
+                            <span class="text-sm text-gray-500">${product.stock} in stock</span>
+                        </div>
+                        <button onclick="addToCart(${product.id})" class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                            Add to Cart 🛒
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Admin functions
+        function loadAdminProducts() {
+            const list = document.getElementById('adminProductsList');
+            list.innerHTML = products.map(product => {
+                const hasRealImages = product.images && product.images.length > 0;
+                const displayImage = hasRealImages ? 
+                    `<img src="${product.images[0].data}" alt="${product.name}" class="w-16 h-16 object-cover rounded-lg">` :
+                    `<div class="text-3xl w-16 h-16 flex items-center justify-center">${product.image}</div>`;
+                
+                return `
+                    <div class="border border-gray-200 rounded-lg p-4 flex justify-between items-center">
+                        <div class="flex items-center space-x-4">
+                            ${displayImage}
+                            <div>
+                                <h4 class="font-semibold">${product.name}</h4>
+                                <p class="text-sm text-gray-600">${product.category} - $${product.price} - Stock: ${product.stock}</p>
+                                ${hasRealImages ? `<p class="text-xs text-indigo-600">📷 ${product.images.length} image(s) uploaded</p>` : ''}
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            ${hasRealImages ? `<button onclick="viewProductImages(${product.id})" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 transition-colors text-sm">
+                                View Images
+                            </button>` : ''}
+                            <button onclick="editProduct(${product.id})" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors">
+                                Edit
+                            </button>
+                            <button onclick="deleteProduct(${product.id})" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Global variable to store uploaded images
+        let uploadedImages = [];
+
+        function triggerImageUpload(index) {
+            document.getElementById(`productImage${index}`).click();
+        }
+
+        function handleMultipleImageUpload(event, index) {
+            const file = event.target.files[0];
+            if (file) {
+                // Validate file size (5MB max)
+                if (file.size > 5 * 1024 * 1024) {
+                    showSuccess('Image size must be less than 5MB');
+                    return;
+                }
+
+                // Validate file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+                if (!validTypes.includes(file.type)) {
+                    showSuccess('Please upload a valid image file (JPG, PNG, GIF, WebP)');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Store the image data
+                    uploadedImages[index] = {
+                        data: e.target.result,
+                        name: file.name,
+                        size: file.size,
+                        type: file.type
+                    };
+
+                    // Update preview
+                    document.getElementById(`imagePreview${index}`).innerHTML = `
+                        <div class="relative">
+                            <img src="${e.target.result}" alt="Preview" class="w-full h-20 object-cover rounded-lg mb-2">
+                            <button type="button" onclick="removeImage(${index})" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors">
+                                ×
+                            </button>
+                        </div>
+                        <p class="text-green-600 text-xs">${file.name}</p>
+                        <p class="text-gray-400 text-xs">${(file.size / 1024).toFixed(1)}KB</p>
+                    `;
+
+                    // Update border to show success
+                    const container = document.getElementById(`imagePreview${index}`).closest('.border-2');
+                    container.classList.remove('border-gray-300');
+                    container.classList.add('border-green-400', 'bg-green-50');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(index) {
+            // Remove from uploaded images array
+            delete uploadedImages[index];
+            
+            // Reset the file input
+            document.getElementById(`productImage${index}`).value = '';
+            
+            // Reset preview
+            const labels = ['Main Image', 'Image 2', 'Image 3', 'Image 4'];
+            document.getElementById(`imagePreview${index}`).innerHTML = `
+                <div class="text-gray-400 text-3xl mb-2">📷</div>
+                <p class="text-gray-500 text-sm">${labels[index]}</p>
+                <p class="text-xs text-gray-400">Click to upload</p>
+            `;
+            
+            // Reset border
+            const container = document.getElementById(`imagePreview${index}`).closest('.border-2');
+            container.classList.remove('border-green-400', 'bg-green-50');
+            container.classList.add('border-gray-300');
+        }
+
+        function clearAllImages() {
+            for (let i = 0; i < 4; i++) {
+                removeImage(i);
+            }
+            uploadedImages = [];
+            showSuccess('All images cleared successfully!');
+        }
+
+        document.getElementById('addProductForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if at least one image is uploaded
+            const hasImages = uploadedImages.some(img => img !== undefined);
+            if (!hasImages) {
+                showSuccess('Please upload at least one product image');
+                return;
+            }
+            
+            // Filter out undefined images and create images array
+            const productImages = uploadedImages.filter(img => img !== undefined);
+            
+            const newProduct = {
+                id: products.length + 1,
+                name: document.getElementById('productName').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                category: document.getElementById('productCategory').value,
+                stock: parseInt(document.getElementById('productStock').value),
+                description: document.getElementById('productDescription').value,
+                images: productImages, // Store all uploaded images
+                image: productImages[0]?.data || "📦", // Main image for display (fallback to emoji)
+                imageCount: productImages.length
+            };
+
+            products.push(newProduct);
+            showSuccess(`Product "${newProduct.name}" added successfully with ${productImages.length} image(s)!`);
+            
+            // Reset form and images
+            document.getElementById('addProductForm').reset();
+            clearAllImages();
+            loadAdminProducts();
+        });
+
+        function deleteProduct(id) {
+            // Create inline confirmation
+            const productElement = event.target.closest('.border');
+            const originalContent = productElement.innerHTML;
+            
+            productElement.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <span class="text-red-600 font-semibold">Delete this product?</span>
+                    <div class="flex space-x-2">
+                        <button onclick="confirmDelete(${id})" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
+                            Yes, Delete
+                        </button>
+                        <button onclick="cancelDelete(this, \`${originalContent.replace(/`/g, '\\`')}\`)" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function confirmDelete(id) {
+            products = products.filter(p => p.id !== id);
+            showSuccess('Product deleted successfully!');
+            loadAdminProducts();
+        }
+
+        function cancelDelete(button, originalContent) {
+            button.closest('.border').innerHTML = originalContent;
+        }
+
+        function viewProductImages(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product && product.images && product.images.length > 0) {
+                const imageGallery = product.images.map((img, index) => `
+                    <div class="text-center">
+                        <img src="${img.data}" alt="${product.name} - Image ${index + 1}" class="max-w-full max-h-64 mx-auto rounded-lg shadow-lg mb-2">
+                        <p class="text-sm text-gray-600">${img.name}</p>
+                        <p class="text-xs text-gray-400">${(img.size / 1024).toFixed(1)}KB</p>
+                    </div>
+                `).join('');
+                
+                // Create a temporary modal to show images
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-xl p-6 max-w-4xl max-h-full overflow-auto mx-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold">${product.name} - Product Images</h3>
+                            <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            ${imageGallery}
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+        }
+
+        // Cart functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product && product.stock > 0) {
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({...product, quantity: 1});
+                }
+                updateCartCount();
+                showSuccess('Product added to cart!');
+            }
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        function loadCart() {
+            const cartItems = document.getElementById('cartItems');
+            const checkoutSection = document.getElementById('checkoutSection');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-6xl mb-4">🛒</div>
+                        <h3 class="text-xl font-semibold mb-4">Your cart is empty</h3>
+                        <button onclick="showPage('products')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors">
+                            Start Shopping
+                        </button>
+                    </div>
+                `;
+                checkoutSection.classList.add('hidden');
+                return;
+            }
+
+            cartItems.innerHTML = `
+                <div class="space-y-4">
+                    ${cart.map(item => `
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-200 pb-4 space-y-3 sm:space-y-0">
+                            <div class="flex items-center space-x-3 sm:space-x-4">
+                                <div class="text-2xl sm:text-3xl">${item.image}</div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-sm sm:text-base">${item.name}</h4>
+                                    <p class="text-gray-600 text-sm">$${item.price}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between sm:justify-end sm:space-x-4">
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition-colors text-sm">-</button>
+                                    <span class="w-8 text-center text-sm sm:text-base">${item.quantity}</span>
+                                    <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300 transition-colors text-sm">+</button>
+                                </div>
+                                <div class="text-base sm:text-lg font-semibold">$${(item.price * item.quantity).toFixed(2)}</div>
+                                <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 transition-colors ml-2">🗑️</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+            checkoutSection.classList.remove('hidden');
+        }
+
+        function updateQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    loadCart();
+                    updateCartCount();
+                }
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            loadCart();
+            updateCartCount();
+        }
+
+        function processPayment() {
+            const form = document.getElementById('checkoutForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // Validate payment form
+            if (!validatePaymentForm()) {
+                return;
+            }
+
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Show processing animation
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '⏳ Processing Payment...';
+            button.disabled = true;
+            
+            // Simulate payment processing delay
+            setTimeout(() => {
+                // Create order
+                const order = {
+                    id: orders.length + 1,
+                    items: [...cart],
+                    total: total,
+                    paymentMethod: getPaymentMethodName(paymentMethod),
+                    status: 'Processing',
+                    date: new Date().toLocaleDateString(),
+                    customerInfo: {
+                        name: form.querySelector('input[placeholder="Full Name"]').value,
+                        email: form.querySelector('input[placeholder="Email Address"]').value,
+                        address: form.querySelector('input[placeholder="Address"]').value,
+                        city: form.querySelector('input[placeholder="City"]').value,
+                        zip: form.querySelector('input[placeholder="ZIP Code"]').value
+                    },
+                    paymentDetails: getPaymentDetails(paymentMethod)
+                };
+
+                orders.push(order);
+                cart = [];
+                updateCartCount();
+                
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                showSuccess(`🎉 Payment of $${total.toFixed(2)} processed successfully via ${getPaymentMethodName(paymentMethod)}! Order #${order.id} has been placed and will be shipped soon.`);
+                
+                setTimeout(() => {
+                    showPage('orders');
+                }, 2000);
+            }, 2000);
+        }
+
+        function getPaymentMethodName(method) {
+            const methods = {
+                'card': 'Credit/Debit Card',
+                'paypal': 'PayPal',
+                'crypto': 'Cryptocurrency',
+                'applepay': 'Apple Pay',
+                'googlepay': 'Google Pay'
+            };
+            return methods[method] || method;
+        }
+
+        function getPaymentDetails(method) {
+            if (method === 'card') {
+                const cardNumber = document.querySelector('input[placeholder*="Card Number"]').value;
+                return {
+                    type: 'Credit Card',
+                    last4: cardNumber.replace(/\s/g, '').slice(-4),
+                    cardType: getCardType(cardNumber)
+                };
+            } else if (method === 'paypal') {
+                return {
+                    type: 'PayPal',
+                    email: 'user@example.com'
+                };
+            } else if (method === 'crypto') {
+                const crypto = document.querySelector('#cryptoForm select').value;
+                return {
+                    type: 'Cryptocurrency',
+                    currency: crypto
+                };
+            } else {
+                return {
+                    type: getPaymentMethodName(method)
+                };
+            }
+        }
+
+        function getCardType(cardNumber) {
+            const number = cardNumber.replace(/\s/g, '');
+            if (number.startsWith('4')) return 'Visa';
+            if (number.startsWith('5') || number.startsWith('2')) return 'Mastercard';
+            if (number.startsWith('3')) return 'American Express';
+            return 'Credit Card';
+        }
+
+        // Orders management
+        function loadOrders() {
+            const ordersList = document.getElementById('ordersList');
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = `
+                    <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                        <div class="text-6xl mb-4">📋</div>
+                        <h3 class="text-xl font-semibold mb-4">No orders yet</h3>
+                        <p class="text-gray-600 mb-6">Start shopping to see your orders here</p>
+                        <button onclick="showPage('products')" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors">
+                            Browse Products
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            ordersList.innerHTML = orders.map(order => `
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold">Order #${order.id}</h3>
+                            <p class="text-gray-600">${order.date}</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-indigo-600">$${order.total.toFixed(2)}</div>
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                                order.status === 'Processing' ? 'bg-yellow-100 text-yellow-800' :
+                                order.status === 'Shipped' ? 'bg-blue-100 text-blue-800' :
+                                'bg-green-100 text-green-800'
+                            }">
+                                ${order.status}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200 pt-4">
+                        <h4 class="font-semibold mb-2">Items:</h4>
+                        <div class="space-y-2">
+                            ${order.items.map(item => `
+                                <div class="flex justify-between items-center">
+                                    <span>${item.image} ${item.name} x${item.quantity}</span>
+                                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="mt-4 flex space-x-2">
+                        <button onclick="updateOrderStatus(${order.id})" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            Update Status
+                        </button>
+                        <button onclick="viewOrderDetails(${order.id})" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateOrderStatus(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                const statuses = ['Processing', 'Shipped', 'Delivered'];
+                const currentIndex = statuses.indexOf(order.status);
+                const nextIndex = (currentIndex + 1) % statuses.length;
+                order.status = statuses[nextIndex];
+                loadOrders();
+                showSuccess(`Order #${orderId} status updated to ${order.status}!`);
+            }
+        }
+
+        function viewOrderDetails(orderId) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                showSuccess(`Order Details: ${order.items.length} items, Payment: ${order.paymentMethod}, Customer: ${order.customerInfo.name}`);
+            }
+        }
+
+        // Payment form functions
+        function showPaymentForm(paymentType) {
+            // Hide all payment forms
+            document.getElementById('cardForm').classList.add('hidden');
+            document.getElementById('paypalForm').classList.add('hidden');
+            document.getElementById('cryptoForm').classList.add('hidden');
+            document.getElementById('applepayForm').classList.add('hidden');
+            document.getElementById('googlepayForm').classList.add('hidden');
+            
+            // Reset all borders
+            document.querySelectorAll('input[name="payment"]').forEach(input => {
+                const container = input.closest('.border, .border-2');
+                container.classList.remove('border-2', 'border-indigo-200', 'bg-indigo-50');
+                container.classList.add('border', 'border-gray-200');
+            });
+            
+            // Show selected payment form and highlight container
+            if (paymentType === 'card') {
+                document.getElementById('cardForm').classList.remove('hidden');
+                const container = document.querySelector('input[value="card"]').closest('.border');
+                container.classList.remove('border', 'border-gray-200');
+                container.classList.add('border-2', 'border-indigo-200', 'bg-indigo-50');
+            } else {
+                document.getElementById(paymentType + 'Form').classList.remove('hidden');
+                const container = document.querySelector(`input[value="${paymentType}"]`).closest('.border');
+                container.classList.remove('border', 'border-gray-200');
+                container.classList.add('border-2', 'border-indigo-200', 'bg-indigo-50');
+            }
+        }
+
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            input.value = formattedValue;
+        }
+
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            input.value = value;
+        }
+
+        function validatePaymentForm() {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            
+            if (paymentMethod === 'card') {
+                const cardNumber = document.querySelector('input[placeholder*="Card Number"]').value;
+                const expiry = document.querySelector('input[placeholder="MM/YY"]').value;
+                const cvv = document.querySelector('input[placeholder="CVV"]').value;
+                const name = document.querySelector('input[placeholder="Cardholder Name"]').value;
+                
+                if (!cardNumber || cardNumber.replace(/\s/g, '').length < 13) {
+                    showSuccess('Please enter a valid card number');
+                    return false;
+                }
+                if (!expiry || expiry.length < 5) {
+                    showSuccess('Please enter a valid expiry date');
+                    return false;
+                }
+                if (!cvv || cvv.length < 3) {
+                    showSuccess('Please enter a valid CVV');
+                    return false;
+                }
+                if (!name.trim()) {
+                    showSuccess('Please enter the cardholder name');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        // Utility functions
+        function showSuccess(message) {
+            document.getElementById('successMessage').textContent = message;
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
+        }
+
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('mobileMenu');
+            const menuButton = event.target.closest('button[onclick="toggleMobileMenu()"]');
+            const menuContent = event.target.closest('#mobileMenu');
+            
+            if (!menuButton && !menuContent && !menu.classList.contains('hidden')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Initialize
+        showPage('home');
+        updateCartCount();
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98f0901c50f56fab',t:'MTc2MDU0NDM3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
